@@ -8,4 +8,6 @@ comment2.target=void\ act()
 comment3.params=
 comment3.target=boolean\ checkHitPedestrian()
 comment3.text=\r\n\ When\ a\ Car\ hit's\ a\ Pedestrian,\ it\ should\ knock\ it\ over\r\n
-numComments=4
+comment4.params=
+comment4.target=void\ honkHorn()
+numComments=5

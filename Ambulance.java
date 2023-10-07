@@ -20,21 +20,15 @@ public class Ambulance extends Vehicle
     public void act()
     {
         super.act();
-        
     }
-
-    public boolean checkHitPedestrian () {
-        // Get a list of all objects currently intersecting with this Ambulance
+    
+    public boolean checkHitPedestrian() {
         List<Pedestrian> pedestrians = getObjectsAtOffset(0, 0, Pedestrian.class);
         
         for (Pedestrian pedestrian : pedestrians) {
-            if (!pedestrian.isAwake()) {
-                // Check if the pedestrian is knocked down (not awake)
-                pedestrian.healMe(); // Call the healMe method on the Pedestrian
-            }
+            pedestrian.healMe();
         }
-        
         return false;
-}
+    }
 
 }
