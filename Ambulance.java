@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * The Ambulance subclass
@@ -23,7 +24,17 @@ public class Ambulance extends Vehicle
     }
 
     public boolean checkHitPedestrian () {
-        // currently empty
+        // Get a list of all objects currently intersecting with this Ambulance
+        List<Pedestrian> pedestrians = getObjectsAtOffset(0, 0, Pedestrian.class);
+        
+        for (Pedestrian pedestrian : pedestrians) {
+            if (!pedestrian.isAwake()) {
+                // Check if the pedestrian is knocked down (not awake)
+                pedestrian.healMe(); // Call the healMe method on the Pedestrian
+            }
+        }
+        
         return false;
-    }
+}
+
 }
