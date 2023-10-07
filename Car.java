@@ -22,51 +22,54 @@ public class Car extends Vehicle
         super.act();
     }
 
-    /**
-     * When a Car hit's a Pedestrian, it should knock it over
-     */
-    public boolean checkHitPedestrian () {
-        Pedestrian p = (Pedestrian)getOneObjectAtOffset((int)speed + getImage().getWidth()/2, 0, Pedestrian.class);
-        if (p != null)
-        {
-            p.knockDown();
-            return true;
-        }
-        return false;
-    }
-    public void honkHorn() {
+
+        public void honkHorn() {
         try {
-            // Load the audio file
-            File audioFile = new File("car_horn.wav"); // Replace with your audio file path
+            // Load the horn audio file
+            File hornAudioFile = new File("car_horn.wav"); // Replace with your horn audio file path
 
-            // Create an audio input stream
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile);
+            // Create an audio input stream for the horn
+            AudioInputStream hornAudioInputStream = AudioSystem.getAudioInputStream(hornAudioFile);
 
-            // Get the audio format
-            AudioFormat format = audioInputStream.getFormat();
+            // Get the audio format for the horn
+            AudioFormat format = hornAudioInputStream.getFormat();
 
-            // Create a data line for audio playback
+            // Create a data line for horn audio playback
             DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
 
-            // Open the data line and start playback
+            // Open the data line for horn audio and start playback
             SourceDataLine sourceDataLine = (SourceDataLine) AudioSystem.getLine(info);
             sourceDataLine.open(format);
             sourceDataLine.start();
 
-            // Read and play the audio data
+            // Read and play the horn audio data
             byte[] buffer = new byte[4096];
             int bytesRead;
 
-            while ((bytesRead = audioInputStream.read(buffer)) != -1) {
+            while ((bytesRead = hornAudioInputStream.read(buffer)) != -1) {
                 sourceDataLine.write(buffer, 0, bytesRead);
             }
 
-            // Close the data line and audio input stream
+            // Close the data line and horn audio input stream
             sourceDataLine.drain();
             sourceDataLine.close();
-            audioInputStream.close();
+            hornAudioInputStream.close();
         } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * When a Car hit's a Pedestrian, it should knock it over and honk the horn
+     */
+    public boolean checkHitPedestrian() {
+        Pedestrian p = (Pedestrian)getOneObjectAtOffset((int)speed + getImage().getWidth()/2, 0, Pedestrian.class);
+        if (p != null)
+        {
+            p.knockDown();
+            honkHorn(); // Call the honkHorn method when hitting a pedestrian
+            return true;
+        }
+        return false;
     }
 }
