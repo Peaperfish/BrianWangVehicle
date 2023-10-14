@@ -106,18 +106,17 @@ public class VehicleWorld extends World
             }
         }
 
-        // Chance to spawn a Pedestrian
-        if (Greenfoot.getRandomNumber (60) == 0){
-            int xSpawnLocation = Greenfoot.getRandomNumber (600) + 100; // random between 99 and 699, so not near edges
-            boolean spawnAtTop = Greenfoot.getRandomNumber(2) == 0 ? true : false;
-            if (spawnAtTop){
-                addObject (new Pedestrian (1), xSpawnLocation, TOP_SPAWN);
+        if (Greenfoot.getRandomNumber(60) == 0) {
+            int xSpawnLocation = Greenfoot.getRandomNumber(600) + 100; // random between 100 and 699, avoiding edges
+            boolean spawnAtTop = Greenfoot.getRandomNumber(2) == 0;
+            if (spawnAtTop) {
+                addObject(new TopPedestrian(), xSpawnLocation, TOP_SPAWN);
             } else {
-                addObject (new Pedestrian (-1), xSpawnLocation, BOTTOM_SPAWN);
+                addObject(new BottomPedestrian(), xSpawnLocation, BOTTOM_SPAWN);
             }
         }
-
     }
+
 
     /**
      *  Given a lane number (zero-indexed), return the y position
@@ -127,12 +126,13 @@ public class VehicleWorld extends World
      *  @param lane the lane number (zero-indexed)
      *  @return int the y position of the lane's center, or -1 if invalid
      */
-    public int getLaneY (int lane){
-        if (lane < lanePositionsY.length){
+    public int getLaneY(int lane) {
+        if (lane >= 0 && lane < lanePositionsY.length) {
             return lanePositionsY[lane];
         } 
         return -1;
     }
+
 
     /**
      * Given a y-position, return the lane number (zero-indexed).
