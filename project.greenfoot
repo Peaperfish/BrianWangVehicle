@@ -73,7 +73,11 @@ readme.name=@README
 readme.width=49
 readme.x=10
 readme.y=10
+<<<<<<< HEAD
 simulation.speed=53
+=======
+simulation.speed=50
+>>>>>>> parent of 884cef3 (Update project.greenfoot)
 target1.height=70
 target1.name=Vehicle
 target1.showInterface=false
