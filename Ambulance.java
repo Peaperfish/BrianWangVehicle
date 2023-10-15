@@ -23,12 +23,15 @@ public class Ambulance extends Vehicle
     }
     
     public boolean checkHitPedestrian() {
-        List<Pedestrian> pedestrians = getObjectsAtOffset(0, 0, Pedestrian.class);
+        Pedestrian pedestrian = (Pedestrian)getOneIntersectingObject(Pedestrian.class);
         
-        for (Pedestrian pedestrian : pedestrians) {
+        if (pedestrian != null) {
             pedestrian.healMe();
+            return true; // Collision detected
         }
-        return false;
-    }
+        
+        return false; // No collision
+}
+
 
 }

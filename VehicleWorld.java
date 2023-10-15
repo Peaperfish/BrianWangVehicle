@@ -1,6 +1,8 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.Collections;
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <h1>The new and vastly improved 2022 Vehicle Simulation Assignment.</h1>
  * <p> This is the first redo of the 8 year old project. Lanes are now drawn dynamically, allowing for
@@ -85,11 +87,18 @@ public class VehicleWorld extends World
         setBackground (background);
     }
 
-    public void act () {
-        spawn();
+    public void act()
+    {
+        spawn(); // Handle vehicle spawning
         zSort ((ArrayList<Actor>)(getObjects(Actor.class)), this);
+        // Check for the world-wide effect every 5 seconds
+        if (getObjects(Vehicle.class).isEmpty()) {
+            // If there are no vehicles currently in the world, apply the blowback effect
+            applyBlowBackEffect();
+        }
     }
-
+        
+    
     private void spawn () {
         // Chance to spawn a vehicle
         if (Greenfoot.getRandomNumber (60) == 0){
@@ -117,7 +126,14 @@ public class VehicleWorld extends World
         // }
     }
 
-
+    private void applyBlowBackEffect() {
+        List<Vehicle> vehicles = getObjects(Vehicle.class);
+        for (Vehicle vehicle : vehicles) {
+            // Apply a force to move the vehicle backward (adjust as needed)
+            vehicle.setLocation(vehicle.getX() - 50, vehicle.getY());
+        }
+    }
+    
     /**
      *  Given a lane number (zero-indexed), return the y position
      *  in the centre of the lane. (doesn't factor offset, so 
@@ -242,7 +258,8 @@ public class VehicleWorld extends World
 
         return lanePositions;
     }
-
+    
+    
     /**
      * A z-sort method which will sort Actors so that Actors that are
      * displayed "higher" on the screen (lower y values) will show up underneath
@@ -316,6 +333,8 @@ public class VehicleWorld extends World
     }
 
 }
+
+
 
 /**
  * Container to hold and Actor and an LOCAL position (so the data isn't lost when the Actor is temporarily
