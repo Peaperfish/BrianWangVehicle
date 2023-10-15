@@ -72,8 +72,8 @@ public class VehicleWorld extends World
         laneCount = 8;
         laneHeight = 48;
         spaceBetweenLanes = 6;
-        splitAtCenter = false;
-        twoWayTraffic = false;
+        splitAtCenter = true;
+        twoWayTraffic = true;
 
         // Init lane spawner objects 
         laneSpawners = new VehicleSpawner[laneCount];
