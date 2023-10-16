@@ -8,7 +8,8 @@ public abstract class Pedestrian extends SuperSmoothMover {
     private double maxSpeed;
     private int direction; // direction is always -1 or 1, for moving down or up, respectively
     private boolean awake;
-
+    
+    
     public Pedestrian(int direction) {
         maxSpeed = Math.random() * 2 + 1;
         speed = maxSpeed;
