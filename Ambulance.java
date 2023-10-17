@@ -9,6 +9,8 @@ public class Ambulance extends Vehicle
     public Ambulance(VehicleSpawner origin){
         super (origin); // call the superclass' constructor first
         
+        yOffset = 13;
+        
         maxSpeed = 2.5;
         speed = maxSpeed;
     }
