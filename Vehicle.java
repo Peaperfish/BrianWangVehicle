@@ -16,9 +16,29 @@ public abstract class Vehicle extends SuperSmoothMover
     protected VehicleSpawner origin;
     protected int followingDistance;
     protected int myLaneNumber;
+    
+    protected boolean checkHitPedestrian() {
+    int frontX = getX() + (int)(direction * getImage().getWidth() / 2); // Center point
+    int leftX = getX() + (int)(direction * getImage().getWidth() / 4); // Left side point
+    int rightX = getX() + (int)(direction * 3 * getImage().getWidth() / 4); // Right side point
+    int y = getY();
 
-    protected abstract boolean checkHitPedestrian ();
+    // Check for collisions at all three points
+    boolean hitFront = isTouching(Pedestrian.class, frontX, y);
+    boolean hitLeft = isTouching(Pedestrian.class, leftX, y);
+    boolean hitRight = isTouching(Pedestrian.class, rightX, y);
 
+    // If any of the points have a collision, return true
+    return hitFront || hitLeft || hitRight;
+}
+
+// Helper method to check if a point is touching a Pedestrian
+private boolean isTouching(Class<?> cls, int x, int y) {
+    Actor actor = getOneObjectAtOffset(x, y, cls);
+    return actor != null;
+}
+
+    
     public Vehicle (VehicleSpawner origin) {
         // remember the VehicleSpawner I came from. This includes information
         // about which lane I'm in and which direction I should face
