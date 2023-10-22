@@ -99,7 +99,7 @@ public abstract class Vehicle extends SuperSmoothMover
         return vehiclesInLane;
     }
 
-    protected boolean isLaneCongested(int laneNumber) {
+    public boolean isLaneCongested(int laneNumber) {
         int maxLaneCapacity = 5; // Define the maximum number of vehicles allowed in a lane
         int vehiclesInLane = getVehiclesInLane(laneNumber).size();
         return vehiclesInLane >= maxLaneCapacity;
@@ -111,8 +111,7 @@ public abstract class Vehicle extends SuperSmoothMover
     }
 
     protected boolean shouldChangeLane() {
-        // Implement your logic here based on simulation rules
-        boolean congested = isLaneCongested();
+        boolean congested = isLaneCongested(myLaneNumber);
         boolean openLane = isOpenLane();
 
         // Decide if it's a good time to change lanes
@@ -128,7 +127,7 @@ public abstract class Vehicle extends SuperSmoothMover
      */
     protected void changeLane() {
         // Check lane change conditions and perform the change if needed
-        boolean congested = isLaneCongested(); // Implement this method as per your simulation
+        boolean congested = isLaneCongested(myLaneNumber);
         boolean openLane = isOpenLane(); // Implement this method as per your simulation
 
         if (congested && openLane) {
