@@ -41,6 +41,7 @@ public class VehicleWorld extends World
     private int laneHeight, laneCount, spaceBetweenLanes;
     private int[] lanePositionsY;
     private VehicleSpawner[] laneSpawners;
+    private List<Vehicle>[] vehiclesInLanes;
 
     /**
      * Constructor for objects of class MyWorld.
@@ -85,6 +86,7 @@ public class VehicleWorld extends World
         laneSpawners[3].setSpeedModifier(1.4);
 
         setBackground (background);
+        
     }
 
     public void act()
@@ -97,7 +99,15 @@ public class VehicleWorld extends World
             applyBlowBackEffect();
         }
     }
-        
+    
+    public void addVehicleToLane(Vehicle vehicle, int lane) {
+        vehiclesInLanes[lane].add(vehicle);
+        addObject(vehicle, vehicle.getX(), vehicle.getY());
+    }
+    
+    public List<Vehicle> getVehiclesInLane(int lane) {
+        return vehiclesInLanes[lane];
+    }
     
     private void spawn () {
         // Chance to spawn a vehicle

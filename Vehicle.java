@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the superclass for Vehicles.
@@ -16,29 +17,28 @@ public abstract class Vehicle extends SuperSmoothMover
     protected VehicleSpawner origin;
     protected int followingDistance;
     protected int myLaneNumber;
-    
+
     protected boolean checkHitPedestrian() {
-    int frontX = getX() + (int)(direction * getImage().getWidth() / 2); // Center point
-    int leftX = getX() + (int)(direction * getImage().getWidth() / 4); // Left side point
-    int rightX = getX() + (int)(direction * 3 * getImage().getWidth() / 4); // Right side point
-    int y = getY();
+        int frontX = getX() + (int)(direction * getImage().getWidth() / 2); // Center point
+        int leftX = getX() + (int)(direction * getImage().getWidth() / 4); // Left side point
+        int rightX = getX() + (int)(direction * 3 * getImage().getWidth() / 4); // Right side point
+        int y = getY();
 
-    // Check for collisions at all three points
-    boolean hitFront = isTouching(Pedestrian.class, frontX, y);
-    boolean hitLeft = isTouching(Pedestrian.class, leftX, y);
-    boolean hitRight = isTouching(Pedestrian.class, rightX, y);
+        // Check for collisions at all three points
+        boolean hitFront = isTouching(Pedestrian.class, frontX, y);
+        boolean hitLeft = isTouching(Pedestrian.class, leftX, y);
+        boolean hitRight = isTouching(Pedestrian.class, rightX, y);
 
-    // If any of the points have a collision, return true
-    return hitFront || hitLeft || hitRight;
-}
+        // If any of the points have a collision, return true
+        return hitFront || hitLeft || hitRight;
+    }
 
-// Helper method to check if a point is touching a Pedestrian
-private boolean isTouching(Class<?> cls, int x, int y) {
-    Actor actor = getOneObjectAtOffset(x, y, cls);
-    return actor != null;
-}
+    // Helper method to check if a point is touching a Pedestrian
+    private boolean isTouching(Class<?> cls, int x, int y) {
+        Actor actor = getOneObjectAtOffset(x, y, cls);
+        return actor != null;
+    }
 
-    
     public Vehicle (VehicleSpawner origin) {
         // remember the VehicleSpawner I came from. This includes information
         // about which lane I'm in and which direction I should face
@@ -75,6 +75,50 @@ private boolean isTouching(Class<?> cls, int x, int y) {
         }
     }
 
+    public Vehicle(VehicleSpawner origin, int laneNumber) {
+        this.origin = origin;
+        moving = true;
+        myLaneNumber = laneNumber; // Set the lane number
+        // The rest of your constructor logic
+    }
+
+    protected int getLaneNumber() {
+        return myLaneNumber;
+    }
+
+    public List<Vehicle> getVehiclesInLane(int lane) {
+        List<Vehicle> vehiclesInLane = new ArrayList<>();
+
+        // Iterate through all Vehicle objects and add those in the specified lane
+        for (Vehicle vehicle : getObjects(Vehicle.class)) {
+            if (vehicle.getLaneNumber() == lane) {
+                vehiclesInLane.add(vehicle);
+            }
+        }
+
+        return vehiclesInLane;
+    }
+
+    protected boolean isLaneCongested(int laneNumber) {
+        int maxLaneCapacity = 5; // Define the maximum number of vehicles allowed in a lane
+        int vehiclesInLane = getVehiclesInLane(laneNumber).size();
+        return vehiclesInLane >= maxLaneCapacity;
+    }
+
+    protected boolean isOpenLane() {
+        int adjacentLaneNumber = myLaneNumber + direction; // Calculate the adjacent lane
+        return !isLaneCongested(adjacentLaneNumber); // Check if the adjacent lane is not congested
+    }
+
+    protected boolean shouldChangeLane() {
+        // Implement your logic here based on simulation rules
+        boolean congested = isLaneCongested();
+        boolean openLane = isOpenLane();
+
+        // Decide if it's a good time to change lanes
+        return congested && openLane;
+    }
+
     /**
      * The superclass Vehicle's act() method. This can be called by a Vehicle subclass object 
      * (for example, by a Car) in two ways:
@@ -82,14 +126,31 @@ private boolean isTouching(Class<?> cls, int x, int y) {
      *   instead. 
      * - subclass' act() method can invoke super.act() to call this, as is demonstrated here.
      */
-    public void act () {
-        drive(); 
-        if (!checkHitPedestrian()){
+    protected void changeLane() {
+        // Check lane change conditions and perform the change if needed
+        boolean congested = isLaneCongested(); // Implement this method as per your simulation
+        boolean openLane = isOpenLane(); // Implement this method as per your simulation
+
+        if (congested && openLane) {
+            // Change lane to the adjacent lane
+            myLaneNumber += (direction > 0) ? 1 : -1; 
+            setLocation(getX(), getWorld().getLaneY(myLaneNumber)); 
+        }
+    }
+
+    public void act() {
+        drive(); // Your existing driving logic
+        if (!checkHitPedestrian()) {
             repelPedestrians();
         }
 
-        if (checkEdge()){
+        if (checkEdge()) {
             getWorld().removeObject(this);
+        }
+
+        // Call the lane change method here when needed
+        if (shouldChangeLane()) {
+            changeLane();
         }
     }
 
