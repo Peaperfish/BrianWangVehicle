@@ -1,4 +1,4 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*; 
 
 /**
  * An abstract Pedestrian class that serves as a base for concrete subclasses.
@@ -24,13 +24,13 @@ public abstract class Pedestrian extends SuperSmoothMover {
 
     public void knockDown() {
         speed = 0;
-        setRotation(direction * 90);
+        //setRotation(direction * 90);
         awake = false;
     }
 
     public void healMe() {
         speed = maxSpeed;
-        setRotation(0);
+        //setRotation(0);
         awake = true;
     }
 

@@ -2,7 +2,9 @@ import greenfoot.*;
 
 public class TopPedestrian extends Pedestrian {
     public TopPedestrian() {
-        super(1); // Pass the direction as 1 for upwards movement
+        super(1);
+        setRotation (90);
+        enableStaticRotation();
     }
 
     public void act() {
