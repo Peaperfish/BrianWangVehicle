@@ -1,11 +1,11 @@
 #BlueJ class context
 comment0.target=Pedestrian
-comment0.text=\r\n\ An\ abstract\ Pedestrian\ class\ that\ serves\ as\ a\ base\ for\ concrete\ subclasses.\r\n
+comment0.text=\n\ An\ abstract\ Pedestrian\ class\ that\ serves\ as\ a\ base\ for\ concrete\ subclasses.\n
 comment1.params=direction
 comment1.target=Pedestrian(int)
 comment2.params=
 comment2.target=void\ act()
-comment2.text=\r\n\ Abstract\ method\ for\ the\ behavior\ of\ the\ Pedestrian.\r\n
+comment2.text=\n\ Abstract\ method\ for\ the\ behavior\ of\ the\ Pedestrian.\n
 comment3.params=
 comment3.target=void\ knockDown()
 comment4.params=

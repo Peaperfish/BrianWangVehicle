@@ -4,7 +4,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * An abstract Pedestrian class that serves as a base for concrete subclasses.
  */
 public abstract class Pedestrian extends SuperSmoothMover {
-    private double speed;
+    public double speed;
     private double maxSpeed;
     private int direction; // direction is always -1 or 1, for moving down or up, respectively
     private boolean awake;

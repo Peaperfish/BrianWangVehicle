@@ -125,15 +125,15 @@ public class VehicleWorld extends World
             }
         }
 
-        // if (Greenfoot.getRandomNumber(60) == 0) {
-            // int xSpawnLocation = Greenfoot.getRandomNumber(600) + 100; // random between 100 and 699, avoiding edges
-            // boolean spawnAtTop = Greenfoot.getRandomNumber(2) == 0;
-            // if (spawnAtTop) {
-                // addObject(new TopPedestrian(), xSpawnLocation, TOP_SPAWN);
-            // } else {
-                // addObject(new BottomPedestrian(), xSpawnLocation, BOTTOM_SPAWN);
-            // }
-        // }
+        if (Greenfoot.getRandomNumber(60) == 0) {
+            int xSpawnLocation = Greenfoot.getRandomNumber(600) + 100; // random between 100 and 699, avoiding edges
+            boolean spawnAtTop = Greenfoot.getRandomNumber(2) == 0;
+            if (spawnAtTop) {
+                addObject(new TopPedestrian(), xSpawnLocation, TOP_SPAWN);
+            } else {
+                addObject(new BottomPedestrian(), xSpawnLocation, BOTTOM_SPAWN);
+            }
+        }
     }
 
     private void applyBlowBackEffect() {

@@ -89,7 +89,7 @@ public abstract class Vehicle extends SuperSmoothMover
     public List<Vehicle> getVehiclesInLane(int lane) {
         List<Vehicle> vehiclesInLane = new ArrayList<>();
 
-        // Iterate through all Vehicle objects and add those in the specified lane
+        //Iterate through all Vehicle objects and add those in the specified lane
         // for (Vehicle vehicle : getObjects(Vehicle.class)) {
             // if (vehicle.getLaneNumber() == lane) {
                 // vehiclesInLane.add(vehicle);
@@ -125,17 +125,17 @@ public abstract class Vehicle extends SuperSmoothMover
      *   instead. 
      * - subclass' act() method can invoke super.act() to call this, as is demonstrated here.
      */
-    // protected void changeLane() {
-        // // Check lane change conditions and perform the change if needed
-        // boolean congested = isLaneCongested(myLaneNumber);
-        // boolean openLane = isOpenLane(); // Implement this method as per your simulation
+    protected void changeLane() {
+        // Check lane change conditions and perform the change if needed
+        boolean congested = isLaneCongested(myLaneNumber);
+        boolean openLane = isOpenLane(); // Implement this method as per your simulation
 
         // if (congested && openLane) {
             // // Change lane to the adjacent lane
             // myLaneNumber += (direction > 0) ? 1 : -1; 
             // setLocation(getX(), getWorld().getLaneY(myLaneNumber)); 
         // }
-    // }
+    }
 
     public void act() {
         drive(); // Your existing driving logic
