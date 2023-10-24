@@ -3,7 +3,7 @@ import greenfoot.*;
 public class BottomPedestrian extends Pedestrian {
     public BottomPedestrian() {
         super(-1);
-        setRotation (270);
+        setRotation(270);
         enableStaticRotation();
     }
 
@@ -11,7 +11,7 @@ public class BottomPedestrian extends Pedestrian {
         if (isAwake()) {
             move(speed);
             if (getY() <= 0) {
-                knockDown();
+                getWorld().removeObject(this); // Remove the Pedestrian when it goes out of the screen
             }
         }
     }
