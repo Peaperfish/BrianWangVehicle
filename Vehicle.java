@@ -20,14 +20,14 @@ public abstract class Vehicle extends SuperSmoothMover
 
     protected boolean checkHitPedestrian() {
         int frontX = getX() + (int)(direction * getImage().getWidth() / 2); // Center point
-        int leftX = getX() + (int)(direction * getImage().getWidth() / 4); // Left side point
-        int rightX = getX() + (int)(direction * 3 * getImage().getWidth() / 4); // Right side point
+        int leftX = getX() + (int)(direction * getImage().getWidth() / 2); // Left side point
+        int rightX = getX() + (int)(direction * getImage().getWidth() / 2); // Right side point
         int y = getY();
 
         // Check for collisions at all three points
-        boolean hitFront = isTouching(Pedestrian.class, frontX, y);
-        boolean hitLeft = isTouching(Pedestrian.class, leftX, y);
-        boolean hitRight = isTouching(Pedestrian.class, rightX, y);
+        boolean hitFront = isTouching(Pedestrian.class, frontX, 0);
+        boolean hitLeft = isTouching(Pedestrian.class, leftX, -getImage().getHeight()/2);
+        boolean hitRight = isTouching(Pedestrian.class, rightX, getImage().getHeight()/2);
 
         // If any of the points have a collision, return true
         return hitFront || hitLeft || hitRight;

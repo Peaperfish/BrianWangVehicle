@@ -8,7 +8,7 @@ public abstract class Pedestrian extends SuperSmoothMover {
     private double maxSpeed;
     private int direction; // direction is always -1 or 1, for moving down or up, respectively
     private boolean awake;
-    
+    protected int startRotation;
     
     public Pedestrian(int direction) {
         maxSpeed = Math.random() * 2 + 1;
@@ -24,13 +24,13 @@ public abstract class Pedestrian extends SuperSmoothMover {
 
     public void knockDown() {
         speed = 0;
-        //setRotation(direction * 90);
+        setRotation(90);
         awake = false;
     }
 
     public void healMe() {
         speed = maxSpeed;
-        //setRotation(0);
+        setRotation(startRotation);
         awake = true;
     }
 
