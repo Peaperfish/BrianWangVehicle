@@ -90,12 +90,12 @@ public abstract class Vehicle extends SuperSmoothMover
         List<Vehicle> vehiclesInLane = new ArrayList<>();
 
         //Iterate through all Vehicle objects and add those in the specified lane
-        // for (Vehicle vehicle : getObjects(Vehicle.class)) {
-            // if (vehicle.getLaneNumber() == lane) {
-                // vehiclesInLane.add(vehicle);
-            // }
-        // }
-
+        for (Vehicle vehicle : getObjects(Vehicle.class)) {
+            if (vehicle.getLaneNumber() == lane) {
+                vehiclesInLane.add(vehicle);
+            }
+        }
+    
         return vehiclesInLane;
     }
 
@@ -130,11 +130,11 @@ public abstract class Vehicle extends SuperSmoothMover
         boolean congested = isLaneCongested(myLaneNumber);
         boolean openLane = isOpenLane(); // Implement this method as per your simulation
 
-        // if (congested && openLane) {
-            // // Change lane to the adjacent lane
-            // myLaneNumber += (direction > 0) ? 1 : -1; 
-            // setLocation(getX(), getWorld().getLaneY(myLaneNumber)); 
-        // }
+        if (congested && openLane) {
+            // Change lane to the adjacent lane
+            myLaneNumber += (direction > 0) ? 1 : -1; 
+            setLocation(getX(), getWorld().getLaneY(myLaneNumber)); 
+        }
     }
 
     public void act() {
