@@ -23,7 +23,7 @@ public class VehicleSpawner extends Actor
 
     private GreenfootImage image;
 
-    private int laneNumber;
+    public int laneNumber;
 
     private double speedModifier;
 

@@ -18,6 +18,10 @@ public abstract class Vehicle extends SuperSmoothMover
     protected int followingDistance;
     protected int myLaneNumber;
 
+    private int[] lanePositionsY = {
+        262, 316, 424, 478, 532, 586, 640 
+    };
+
     protected boolean checkHitPedestrian() {
         int frontX = getX() + (int)(direction * getImage().getWidth() / 2); // Center point
         int leftX = getX() + (int)(direction * getImage().getWidth() / 2); // Left side point
@@ -86,16 +90,23 @@ public abstract class Vehicle extends SuperSmoothMover
         return myLaneNumber;
     }
 
+    public int getLaneY(int lane) {
+        if (lane >= 0 && lane < lanePositionsY.length) {
+            return lanePositionsY[lane];
+        }
+        return -1; // Return a default value if the lane is out of bounds
+    }
+
     public List<Vehicle> getVehiclesInLane(int lane) {
         List<Vehicle> vehiclesInLane = new ArrayList<>();
 
         //Iterate through all Vehicle objects and add those in the specified lane
-        for (Vehicle vehicle : getObjects(Vehicle.class)) {
+        for (Vehicle vehicle : getWorld().getObjects(Vehicle.class)) {
             if (vehicle.getLaneNumber() == lane) {
                 vehiclesInLane.add(vehicle);
             }
         }
-    
+
         return vehiclesInLane;
     }
 
@@ -132,8 +143,9 @@ public abstract class Vehicle extends SuperSmoothMover
 
         if (congested && openLane) {
             // Change lane to the adjacent lane
-            myLaneNumber += (direction > 0) ? 1 : -1; 
-            setLocation(getX(), getWorld().getLaneY(myLaneNumber)); 
+            myLaneNumber += (direction > 0) ? 1 : -1;
+            VehicleWorld vw = (VehicleWorld)getWorld();
+            setLocation(getX(), vw.getLaneY(myLaneNumber)); 
         }
     }
 
@@ -148,9 +160,9 @@ public abstract class Vehicle extends SuperSmoothMover
         }
 
         // Call the lane change method here when needed
-        // if (shouldChangeLane()) {
-            // changeLane();
-        // }
+        if (shouldChangeLane()) {
+        changeLane();
+        }
     }
 
     /**

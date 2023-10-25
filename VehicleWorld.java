@@ -31,7 +31,7 @@ public class VehicleWorld extends World
     public static Color YELLOW_LINE = new Color (255, 216, 0);
 
     public static boolean SHOW_SPAWNERS = false;
-    
+
     // Set Y Positions for Pedestrians to spawn
     public static final int TOP_SPAWN = 190; // Pedestrians who spawn on top
     public static final int BOTTOM_SPAWN = 705; // Pedestrians who spawn on the bottom
@@ -42,6 +42,7 @@ public class VehicleWorld extends World
     private int[] lanePositionsY;
     private VehicleSpawner[] laneSpawners;
     private List<Vehicle>[] vehiclesInLanes;
+
 
     /**
      * Constructor for objects of class MyWorld.
@@ -76,6 +77,8 @@ public class VehicleWorld extends World
         splitAtCenter = true;
         twoWayTraffic = true;
 
+
+
         // Init lane spawner objects 
         laneSpawners = new VehicleSpawner[laneCount];
 
@@ -86,7 +89,7 @@ public class VehicleWorld extends World
         laneSpawners[3].setSpeedModifier(1.4);
 
         setBackground (background);
-        
+
     }
 
     public void act()
@@ -99,16 +102,16 @@ public class VehicleWorld extends World
             applyBlowBackEffect();
         }
     }
-    
+
     public void addVehicleToLane(Vehicle vehicle, int lane) {
         vehiclesInLanes[lane].add(vehicle);
         addObject(vehicle, vehicle.getX(), vehicle.getY());
     }
-    
+
     public List<Vehicle> getVehiclesInLane(int lane) {
         return vehiclesInLanes[lane];
     }
-    
+
     private void spawn () {
         // Chance to spawn a vehicle
         if (Greenfoot.getRandomNumber (60) == 0){
@@ -143,7 +146,7 @@ public class VehicleWorld extends World
             vehicle.setLocation(vehicle.getX() - 50, vehicle.getY());
         }
     }
-    
+
     /**
      *  Given a lane number (zero-indexed), return the y position
      *  in the centre of the lane. (doesn't factor offset, so 
@@ -158,7 +161,6 @@ public class VehicleWorld extends World
         } 
         return -1;
     }
-
 
     /**
      * Given a y-position, return the lane number (zero-indexed).
@@ -268,8 +270,7 @@ public class VehicleWorld extends World
 
         return lanePositions;
     }
-    
-    
+
     /**
      * A z-sort method which will sort Actors so that Actors that are
      * displayed "higher" on the screen (lower y values) will show up underneath
@@ -343,7 +344,6 @@ public class VehicleWorld extends World
     }
 
 }
-
 
 
 /**
