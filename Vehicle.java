@@ -157,11 +157,12 @@ public abstract class Vehicle extends SuperSmoothMover
 
         if (checkEdge()) {
             getWorld().removeObject(this);
+            return;
         }
 
         // Call the lane change method here when needed
         if (shouldChangeLane()) {
-        changeLane();
+            changeLane();
         }
     }
 
