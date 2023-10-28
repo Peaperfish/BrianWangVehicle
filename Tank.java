@@ -15,10 +15,10 @@ public class Tank extends Vehicle
         super(origin); // call the superclass' constructor
         maxSpeed = 1.5 + ((Math.random() * 30)/5);
         speed = maxSpeed;
-        yOffset = 20;
+        yOffset = 22;
         followingDistance = 6;
-        image = new GreenfootImage("Tank.png");
-        //emptyImage = new GreenfootImage("empty_truck.png");
+        image = new GreenfootImage("Tank(1).png");
+        emptyImage = new GreenfootImage("Tank.png");
         setImage(image);
         hasBomb = true;
     }

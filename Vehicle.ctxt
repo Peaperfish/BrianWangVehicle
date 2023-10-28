@@ -19,6 +19,7 @@ comment15.params=
 comment15.target=void\ repelPedestrians()
 comment16.params=nearbyObjects\ minDistance
 comment16.target=void\ pushAwayFromObjects(java.util.ArrayList,\ double)
+comment16.text=\r\n\ New\ repel\ method\!\ Seems\ to\ work\ well.\ Can\ be\ used\ in\ both\ directions,\ but\ for\ now\r\n\ commented\ out\ movement\ on\ x\ so\ players\ are\ only\ "repelled"\ in\ a\ y-direction.\r\n\ \r\n\ @author\ Mr\ Cohen\r\n\ @since\ February\ 2023\r\n
 comment17.params=
 comment17.target=void\ drive()
 comment17.text=\r\n\ Method\ that\ deals\ with\ movement.\ Speed\ can\ be\ set\ by\ individual\ subclasses\ in\ their\ constructors\r\n

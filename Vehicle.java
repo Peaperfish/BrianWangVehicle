@@ -19,8 +19,8 @@ public abstract class Vehicle extends SuperSmoothMover
     protected int myLaneNumber;
 
     private int[] lanePositionsY = {
-        262, 316, 424, 478, 532, 586, 640 
-    };
+            262, 316, 424, 478, 532, 586, 640 
+        };
 
     protected boolean checkHitPedestrian() {
         int frontX = getX() + (int)(direction * getImage().getWidth() / 2); // Center point
@@ -189,34 +189,53 @@ public abstract class Vehicle extends SuperSmoothMover
         }
         return false;
     }
-
-    // The Repel Pedestrian Experiment - Currently a work in Progress (Feb 2023)
-    public void repelPedestrians() {
+    
+        public void repelPedestrians() {
         ArrayList<Pedestrian> pedsTouching = (ArrayList<Pedestrian>)getIntersectingObjects(Pedestrian.class);
-        pushAwayFromObjects(pedsTouching, this.getImage().getHeight()/2);
-    }
-    
-    
-    
-    // The Repel Pedestrian Experiment (primary method) - Currently a work in Progress (Feb 2023)
-    public void pushAwayFromObjects(ArrayList<Pedestrian> nearbyObjects, double minDistance) {
 
+        ArrayList<Actor> actorsTouching = new ArrayList<Actor>();
+
+        // this works, but doesn't ignore knocked down Pedestrians
+        //actorsTouching.addAll(pedsTouching);
+        for (Pedestrian p : pedsTouching){
+            if (p.isAwake()){
+                actorsTouching.add(p);
+            }
+        }
+
+        pushAwayFromObjects(actorsTouching, 4);
+    }
+
+    
+    /**
+     * New repel method! Seems to work well. Can be used in both directions, but for now
+     * commented out movement on x so players are only "repelled" in a y-direction.
+     * 
+     * @author Mr Cohen
+     * @since February 2023
+     */
+    public void pushAwayFromObjects(ArrayList<Actor> nearbyObjects, double minDistance) {
         // Get the current position of this actor
         int currentX = getX();
         int currentY = getY();
 
         // Iterate through the nearby objects
-        for (Pedestrian object : nearbyObjects) {
-            if (!object.isAwake()){ continue;}
-            // Get the position of the nearby object
+        for (Actor object : nearbyObjects) {
+            // Get the position and bounding box of the nearby object
             int objectX = object.getX();
             int objectY = object.getY();
+            int objectWidth = object.getImage().getWidth();
+            int objectHeight = object.getImage().getHeight();
 
-            // Calculate the distance between this actor and the nearby object
+            // Calculate the distance between this actor and the nearby object's bounding oval
             double distance = Math.sqrt(Math.pow(currentX - objectX, 2) + Math.pow(currentY - objectY, 2));
 
-            // Check if the distance is less than the minimum required distance
-            if (distance < minDistance) {
+            // Calculate the effective radii of the bounding ovals
+            double thisRadius = Math.max(getImage().getWidth() / 2.0, getImage().getHeight() / 2.0);
+            double objectRadius = Math.max(objectWidth / 2.0, objectHeight / 2.0);
+
+            // Check if the distance is less than the sum of the radii
+            if (distance < (thisRadius + objectRadius + minDistance)) {
                 // Calculate the direction vector from this actor to the nearby object
                 int deltaX = objectX - currentX;
                 int deltaY = objectY - currentY;
@@ -227,11 +246,15 @@ public abstract class Vehicle extends SuperSmoothMover
                 double unitY = deltaY / length;
 
                 // Calculate the amount by which to push the nearby object
-                double pushAmount = minDistance - distance;
+                double pushAmount = (thisRadius + objectRadius + minDistance) - distance;
 
                 // Update the position of the nearby object to push it away
+
                 object.setLocation(objectX, objectY + (int)(pushAmount * unitY));
-                // removed from line above, objectX ==> + (int)(pushAmount * unitX)
+
+                // 2d version, allows pushing on x and y axis, commented out for now but it works, just not the
+                // effect I'm after:
+                //object.setLocation(objectX + (int)(pushAmount * unitX), objectY + (int)(pushAmount * unitY));
             }
         }
     }
@@ -263,8 +286,7 @@ public abstract class Vehicle extends SuperSmoothMover
 
         move (speed * direction);
     }   
-    
-    
+
     
     /**
      * An accessor that can be used to get this Vehicle's speed. Used, for example, when a vehicle wants to see

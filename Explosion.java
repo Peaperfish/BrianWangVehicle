@@ -75,16 +75,16 @@ public class Explosion extends Effect
         this.setImage(fireImage);
     }
 
-    public void addedToWorld (World w){
-        if (maxSize > 30){
-            //explosionSounds[explosionSoundsIndex].setVolume(Math.min(maxSize, 60));
+    // public void addedToWorld (World w){
+        // if (maxSize > 30){
+            // explosionSounds[explosionSoundsIndex].setVolume(Math.min(maxSize, 60));
             // explosionSounds[explosionSoundsIndex].play();
-            //explosionSoundsIndex++;
-            if (explosionSoundsIndex >= explosionSounds.length){
-                explosionSoundsIndex = 0;
-            }
-        }
-    }
+            // explosionSoundsIndex++;
+            // if (explosionSoundsIndex >= explosionSounds.length){
+                // explosionSoundsIndex = 0;
+            // }
+        // }
+    // }
 
     /**
      * Pre-load sounds for explosions
