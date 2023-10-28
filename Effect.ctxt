@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=Effect
+comment0.text=\r\n\ Superclass\ for\ Effects,\ which\ will\ contain\ useful\ behaviours\ \r\n\ to\ affect\ the\ way\ they\ are\ displayed.\r\n\ \r\n\ \r\n
+comment1.params=timeLeft\ totalFadeTime
+comment1.target=void\ fade(int,\ int)
+numComments=2

@@ -195,7 +195,9 @@ public abstract class Vehicle extends SuperSmoothMover
         ArrayList<Pedestrian> pedsTouching = (ArrayList<Pedestrian>)getIntersectingObjects(Pedestrian.class);
         pushAwayFromObjects(pedsTouching, this.getImage().getHeight()/2);
     }
-
+    
+    
+    
     // The Repel Pedestrian Experiment (primary method) - Currently a work in Progress (Feb 2023)
     public void pushAwayFromObjects(ArrayList<Pedestrian> nearbyObjects, double minDistance) {
 
@@ -261,7 +263,9 @@ public abstract class Vehicle extends SuperSmoothMover
 
         move (speed * direction);
     }   
-
+    
+    
+    
     /**
      * An accessor that can be used to get this Vehicle's speed. Used, for example, when a vehicle wants to see
      * if a faster vehicle is ahead in the lane.
