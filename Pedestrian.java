@@ -6,8 +6,8 @@ import greenfoot.*;
 public abstract class Pedestrian extends SuperSmoothMover {
     public double speed;
     private double maxSpeed;
-    private int direction; // direction is always -1 or 1, for moving down or up, respectively
-    private boolean awake;
+    public int direction; // direction is always -1 or 1, for moving down or up, respectively
+    public boolean awake;
     protected int startRotation;
     
     public Pedestrian(int direction) {

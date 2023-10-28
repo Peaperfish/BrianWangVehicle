@@ -78,7 +78,6 @@ public class VehicleWorld extends World
         twoWayTraffic = true;
 
 
-
         // Init lane spawner objects 
         laneSpawners = new VehicleSpawner[laneCount];
 
