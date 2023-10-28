@@ -16,7 +16,7 @@ public class Bus extends Vehicle
     public Bus(VehicleSpawner origin){
         super (origin); // call the superclass' constructor first
 
-        stopActsLeft = 0;
+        //stopActsLeft = 0;
         stopTimer = new SimpleTimer();
         //Set up values for Bus
         maxSpeed = 1.5 + ((Math.random() * 10)/5);
@@ -39,12 +39,12 @@ public class Bus extends Vehicle
                 if (msElapsed >= 1000){
                     moving = true;
                 } else {
-                    stopActsLeft--;
+                    //stopActsLeft--;
                 }
             }
         }
     }
-
+    
     public boolean checkHitPedestrian () {
         Pedestrian p = (Pedestrian)getOneObjectAtOffset((int)speed + getImage().getWidth()/2, 0, Pedestrian.class);
         if (p != null)
@@ -52,7 +52,7 @@ public class Bus extends Vehicle
             // What to do if I hit a Pedestrian
             getWorld().removeObject(p);
             moving = false;
-            stopActsLeft = STOP_DURATION;
+            //stopActsLeft = STOP_DURATION;
             stopTimer.mark();
             return true;
         }

@@ -20,6 +20,27 @@ import java.util.List;
  * --> Implemented Z-sort, disabled paint order between Pedestrians and Vehicles (looks much better now)
  * --> Implemented lane-based speed modifiers for max speed
  * 
+ * 
+ * this vehicel sim has some fetures, the tanks carries bombs which will kill the
+ * pedestrian with expolsion of the bomb when the pedestrian is standing in front of it
+ * the bomb will disappear when the bomb is used, every tank will only have 1 bomb on it
+ * 
+ * the car (honda civic) will run over the pedestrian and as a result will kill them
+ * 
+ * the ambulance will revive/heal the dead pedestrians, after getting healed/revived, 
+ * the pedestrians will walk as if nothing happened till the other side of the road
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
  */
 public class VehicleWorld extends World
 {
