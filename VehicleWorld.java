@@ -42,8 +42,10 @@ public class VehicleWorld extends World
     private int[] lanePositionsY;
     private VehicleSpawner[] laneSpawners;
     private List<Vehicle>[] vehiclesInLanes;
-
-
+    private int nextSandstormAct; // when to spawn the next Sandstorm
+    private int actCount;
+    
+    
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -71,13 +73,18 @@ public class VehicleWorld extends World
         setBackground (background);
 
         // Set critical variables - will affect lane drawing
-        laneCount = 8;
-        laneHeight = 48;
+        laneCount = 7;
+        laneHeight = 50;
         spaceBetweenLanes = 6;
         splitAtCenter = true;
         twoWayTraffic = false;
-
-
+        
+        Explosion.init();
+        
+        nextSandstormAct = 300;
+        
+        actCount = 0;
+        
         // Init lane spawner objects 
         laneSpawners = new VehicleSpawner[laneCount];
 

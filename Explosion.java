@@ -93,7 +93,7 @@ public class Explosion extends Effect
         explosionSoundsIndex = 0;
         explosionSounds = new GreenfootSound[48]; // lots of simultaneous explosioning!
         for (int i = 0; i < explosionSounds.length; i++){
-            explosionSounds[i] = new GreenfootSound("explosion2.wav");
+            explosionSounds[i] = new GreenfootSound("explosion.wav");
 
         }   
     }

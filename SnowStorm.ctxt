@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=SnowStorm
+comment0.text=\r\n\ A\ Sandstorm\ consists\ of\ a\ visual\ image\ and\ a\ method\ for\ moving\ it\ around\ to\ look\r\n\ "stormy"\ as\ well\ as\ the\ behaviours\ to\ affect\ Pedestrians\ and\ manage\ it's\ own\ removal\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=SnowStorm()
+comment2.params=w
+comment2.target=void\ addedToWorld(greenfoot.World)
+comment3.params=
+comment3.target=void\ act()
+comment3.text=\r\n\ Act\ -\ do\ whatever\ the\ Sandstorm\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
+comment4.params=width\ height\ density
+comment4.target=greenfoot.GreenfootImage\ drawSand(int,\ int,\ int)
+comment4.text=\r\n\ density\ should\ be\ 1-100.\ 100\ will\ be\ almost\ completely\ white\r\n
+numComments=5

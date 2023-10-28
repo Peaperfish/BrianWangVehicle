@@ -17,8 +17,8 @@ public class Tank extends Vehicle
         speed = maxSpeed;
         yOffset = 22;
         followingDistance = 6;
-        image = new GreenfootImage("Tank(1).png");
-        emptyImage = new GreenfootImage("Tank.png");
+        image = new GreenfootImage("Tank.png");
+        emptyImage = new GreenfootImage("Tank(1).png");
         setImage(image);
         hasBomb = true;
     }
