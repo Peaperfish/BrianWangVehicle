@@ -1,13 +1,11 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import javax.sound.sampled.*;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * The Car subclass
  */
 public class Car extends Vehicle
 {
+    private GreenfootSound honk;
     
     public Car(VehicleSpawner origin) {
         super(origin); // call the superclass' constructor
@@ -22,7 +20,9 @@ public class Car extends Vehicle
         super.act();
     }
 
-
+    public void honkHorn() {
+        honk = new GreenfootSound("carHorn.wav");
+    }
     
 
     /**
@@ -33,7 +33,7 @@ public class Car extends Vehicle
         if (p != null)
         {
             p.knockDown();
-            //honkHorn(); // Call the honkHorn method when hitting a pedestrian
+            honkHorn(); // Call the honkHorn method when hitting a pedestrian
             return true;
         }
         return false;

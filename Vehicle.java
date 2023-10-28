@@ -190,7 +190,7 @@ public abstract class Vehicle extends SuperSmoothMover
         return false;
     }
     
-        public void repelPedestrians() {
+    public void repelPedestrians() {
         ArrayList<Pedestrian> pedsTouching = (ArrayList<Pedestrian>)getIntersectingObjects(Pedestrian.class);
 
         ArrayList<Actor> actorsTouching = new ArrayList<Actor>();

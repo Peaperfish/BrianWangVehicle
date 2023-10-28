@@ -8,9 +8,9 @@ public class Bus extends Vehicle
     //public static final int STOP_DURATION = 60; // acts
 
     public static final int STOP_DURATION = 1000; //ms
-    
+
     private SimpleTimer stopTimer;
-    
+
     private int stopActsLeft;
 
     public Bus(VehicleSpawner origin){
@@ -29,18 +29,18 @@ public class Bus extends Vehicle
      * Act - do whatever the Bus wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public void act()
-    {
+    public void act() {
         if(moving){
             super.act();
             speed = 0; 
         } else {
-            //if (stopActsLeft == 0){
-            int msElapsed = stopTimer.millisElapsed();
-            if (msElapsed >= 1000){
-                moving = true;
-            } else {
-                //stopActsLeft--;
+            if (stopActsLeft == 0){
+                int msElapsed = stopTimer.millisElapsed();
+                if (msElapsed >= 1000){
+                    moving = true;
+                } else {
+                    stopActsLeft--;
+                }
             }
         }
     }
@@ -52,10 +52,11 @@ public class Bus extends Vehicle
             // What to do if I hit a Pedestrian
             getWorld().removeObject(p);
             moving = false;
-            //stopActsLeft = STOP_DURATION;
+            stopActsLeft = STOP_DURATION;
             stopTimer.mark();
             return true;
         }
         return false;
     }
 }
+

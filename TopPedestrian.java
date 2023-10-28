@@ -3,10 +3,10 @@ import greenfoot.*;
 public class TopPedestrian extends Pedestrian {
     public TopPedestrian() {
         super(1);
-        startRotation = 90;
+        startRotation = 0;
         setRotation(startRotation);
         
-        enableStaticRotation();
+        //enableStaticRotation();
     }
 
     public void act()

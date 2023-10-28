@@ -61,7 +61,7 @@ public class Explosion extends Effect
         // Set starting Color
         currentColor = new Color (red, green, blue);
         // Set starting Radius
-        radius = 5;
+        radius = 1;
         // Figure out how many times this will run, so opacity can decrease at
         // an appropriate rate
         steps = (maxSize) / speed;

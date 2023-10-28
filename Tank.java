@@ -39,6 +39,7 @@ public class Tank extends Vehicle
                 hasBomb = false;
                 setImage(emptyImage);
                 getWorld().addObject(new Explosion(300), getX(), getY());
+                p.knockDown();
             }
         }
         return false;
