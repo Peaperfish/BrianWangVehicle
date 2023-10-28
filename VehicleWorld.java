@@ -42,7 +42,7 @@ public class VehicleWorld extends World
     private int[] lanePositionsY;
     private VehicleSpawner[] laneSpawners;
     private List<Vehicle>[] vehiclesInLanes;
-    private int nextSandstormAct; // when to spawn the next Sandstorm
+    private int nextSnowStormAct; // when to spawn the next SnowStorm
     private int actCount;
     
     
@@ -74,14 +74,14 @@ public class VehicleWorld extends World
 
         // Set critical variables - will affect lane drawing
         laneCount = 7;
-        laneHeight = 50;
-        spaceBetweenLanes = 6;
+        laneHeight = 54;
+        spaceBetweenLanes = 5;
         splitAtCenter = true;
         twoWayTraffic = false;
         
         Explosion.init();
         
-        nextSandstormAct = 300;
+        nextSnowStormAct = 300;
         
         actCount = 0;
         
@@ -100,6 +100,7 @@ public class VehicleWorld extends World
 
     public void act()
     {
+        actCount++;
         spawn(); // Handle vehicle spawning
         zSort ((ArrayList<Actor>)(getObjects(Actor.class)), this);
         // Check for the world-wide effect every 5 seconds
@@ -145,6 +146,20 @@ public class VehicleWorld extends World
                 addObject(new BottomPedestrian(), xSpawnLocation, BOTTOM_SPAWN);
             }
         }
+        
+        if (actCount == nextSnowStormAct){
+            addObject (new SnowStorm(), 0, getHeight()/2); // actually start the SnowStorm
+            
+            // Calculate the INTERVAL - how long between spawns?
+            // This presents a minimum of 600 and a maximum of 899 (600 + rand(0-299)
+            // which represents about 10 to 15 seconds.
+            int actsUntilNextStorm = Greenfoot.getRandomNumber (300) + 600;
+            
+            // Add the current actCount (it just keeps counting up) to the desired
+            // interval to determing when the next SnowStorm should spawn
+            nextSnowStormAct = actCount + actsUntilNextStorm;
+        }
+        
     }
 
     private void applyBlowBackEffect() {

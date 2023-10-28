@@ -24,7 +24,7 @@ public abstract class Pedestrian extends SuperSmoothMover {
 
     public void knockDown() {
         speed = 0;
-        setRotation(270);
+        setRotation(90);
         awake = false;
     }
 
@@ -38,7 +38,7 @@ public abstract class Pedestrian extends SuperSmoothMover {
         return awake;
     }
     
-        public void windPush(double speed){
+    public void windPush(double speed){
         if (!awake) return;
         double factor = 0.3 * ((double)Greenfoot.getRandomNumber (100))/100;
         double movement = speed * factor;

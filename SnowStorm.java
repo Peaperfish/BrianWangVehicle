@@ -40,10 +40,10 @@ public class SnowStorm extends Effect
         int randomChange = Greenfoot.getRandomNumber(7) - 3; // -3 to 3
         double change = randomChange / 10.0; // -0.3 to 3
 
-        // if (getX() > 700 && !turnedAround && Greenfoot.getRandomNumber(120) == 0){
-        //   speed *= -1;
-        //    turnedAround = true;
-        // }
+        if (getX() > 700 && !turnedAround && Greenfoot.getRandomNumber(120) == 0){
+          speed *= -1;
+           turnedAround = true;
+        }
 
         if (getX() > 600 && !turnedAround){
             speed *= -1;
@@ -75,12 +75,12 @@ public class SnowStorm extends Effect
 
         Color[] swatch = new Color [32];
 
-        int green = 170;
+        int green = 255;
 
         // Build a color pallete out of shades of near-white yellow and near-white blue      
         for (int i = 0; i < swatch.length; i++){ // first half blue tones
-            swatch[i] = new Color (242, green, 20);
-            green += 2;
+            swatch[i] = new Color (255, green, 255);
+            green += 0;
         }
 
         // The temporary image, my canvas for drawing
