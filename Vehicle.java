@@ -30,14 +30,11 @@ public abstract class Vehicle extends SuperSmoothMover
     protected int nextLaneY;
     protected int turnCoolDown;
     private int actCount;
-    
-    
+
     
     private GreenfootSound honk; 
 
-    private int[] lanePositionsY = {
-            262, 316, 424, 478, 532, 586, 640 
-        };
+    private int[] lanePositionsY = {262, 316, 370, 424, 478, 532};
 
     protected boolean checkHitPedestrian() {
         int frontX = getX() + (int)(direction * getImage().getWidth() / 2); // Center point
@@ -164,7 +161,7 @@ public abstract class Vehicle extends SuperSmoothMover
 
     public int getLaneY(int lane) {
         // Define the Y-coordinates for each lane (you may need to adjust these values)
-        int[] lanePositionsY = {262, 316, 424, 478, 532, 586, 640};
+        int[] lanePositionsY = {262, 316, 370, 424, 478, 532};
 
         // Check if the provided lane is within a valid range
         if (lane >= 0 && lane < lanePositionsY.length) {
@@ -316,11 +313,13 @@ public abstract class Vehicle extends SuperSmoothMover
     move (speed * direction);
     }   
      */
-    
+
     // I got help starting from here
-    
+
     public void drive() 
     {
+
+        
         if(gotHeight == false){
             laneYCoord = getY(); 
             gotHeight = true;
@@ -330,8 +329,7 @@ public abstract class Vehicle extends SuperSmoothMover
             LaneChecker lcLeftLane = (LaneChecker)getOneObjectAtOffset(0, -48-6, LaneChecker.class);
             LaneChecker lcRightLane = (LaneChecker)getOneObjectAtOffset(0, +48+6, LaneChecker.class);    
             LaneChecker lcFront = (LaneChecker)getOneObjectAtOffset(direction * (int)(speed + getImage().getWidth()/2 + maxSpeed), 0, LaneChecker.class);
-        
-            
+
             if(!isSwitchingLanes){
                 Vehicle ahead = (Vehicle) getOneObjectAtOffset (direction * (int)(speed + getImage().getWidth()/2 + maxSpeed), 0, Vehicle.class);
                 VehicleWorld world = (VehicleWorld) getWorld();
@@ -340,7 +338,7 @@ public abstract class Vehicle extends SuperSmoothMover
                 {
                     speed = maxSpeed;
                 }
-                
+
                 else if(ahead.getIsSwitchingLanes() == false && turnCoolDown > 120 ){//&& world.getActs() > 120){
                     lcLeftLane = (LaneChecker)getOneObjectAtOffset(0, -48-6, LaneChecker.class);
                     lcRightLane = (LaneChecker)getOneObjectAtOffset(0, +48+6, LaneChecker.class);        
@@ -361,7 +359,7 @@ public abstract class Vehicle extends SuperSmoothMover
                             }
                         }
                     }
-                    
+
                     if(!isSwitchingLanes && lcRightLane == null){
                         putRightLaneChecker(getY());
                         lcRightLane = (LaneChecker)getOneObjectAtOffset(0, +48+6, LaneChecker.class);
@@ -410,13 +408,32 @@ public abstract class Vehicle extends SuperSmoothMover
             }
 
             turnCoolDown++;
+            
+            Vehicle ahead = (Vehicle) getOneObjectAtOffset (direction * (int)(speed + getImage().getWidth()/2 + 6), 0, Vehicle.class);
+            if (ahead == this){
+
+            }
+            double otherVehicleSpeed = -1;
+            if (ahead != null) {
+                otherVehicleSpeed = ahead.getSpeed();
+            }
+
+            // Various things that may slow down driving speed 
+            // You can ADD ELSE IF options to allow other 
+            // factors to reduce driving speed.
+
+            if (otherVehicleSpeed >= 0 && otherVehicleSpeed < maxSpeed){ // Vehicle ahead is slower?
+                speed = otherVehicleSpeed;
+            } else {
+                speed = maxSpeed; // nothing impeding speed, so go max speed
+            }
+
             move (speed * direction);
 
         }   
     }
     // got help ends
-    
-    
+
     //Returns if the vehicle is switching lanes
     public boolean getIsSwitchingLanes(){
         return isSwitchingLanes;
@@ -472,6 +489,7 @@ public abstract class Vehicle extends SuperSmoothMover
         }
         return false;
     }
+
     /**
      * An accessor that can be used to get this Vehicle's speed. Used, for example, when a vehicle wants to see
      * if a faster vehicle is ahead in the lane.
@@ -479,7 +497,7 @@ public abstract class Vehicle extends SuperSmoothMover
     public double getSpeed(){
         return speed;
     }
-    
+
     public int getActs(){
         return actCount;
     }

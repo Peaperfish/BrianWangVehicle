@@ -23,7 +23,7 @@ public class VehicleSpawner extends Actor
 
     private GreenfootImage image;
 
-    public int laneNumber;
+    private int laneNumber;
 
     private double speedModifier;
 
@@ -51,8 +51,8 @@ public class VehicleSpawner extends Actor
             image.fillRect(0, 0, width-1, height - 1);
             image.setColor(Color.WHITE);
             image.setFont(laneFont);
-            image.drawString ("" + laneNumber, 10, (int)(height * 0.9));
-            image.drawString ("" + laneNumber, width - 28, (int)(height * 0.9));
+            image.drawString ("" + laneNumber, 10, (int)(height * 0.8));
+            image.drawString ("" + laneNumber, width - 28, (int)(height * 0.8));
 
         }
         setImage(image);

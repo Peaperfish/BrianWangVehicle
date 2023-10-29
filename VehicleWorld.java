@@ -53,7 +53,7 @@ public class VehicleWorld extends World
     public static Color GREY_STREET = new Color (88, 88, 88);
     public static Color YELLOW_LINE = new Color (255, 216, 0);
 
-    public static boolean SHOW_SPAWNERS = false;
+    public static boolean SHOW_SPAWNERS = true;
 
     // Set Y Positions for Pedestrians to spawn
     public static final int TOP_SPAWN = 190; // Pedestrians who spawn on top
@@ -101,7 +101,7 @@ public class VehicleWorld extends World
         laneCount = 6;
         laneHeight = 48;
         spaceBetweenLanes = 6;
-        splitAtCenter = true;
+        splitAtCenter = false;
         twoWayTraffic = false;
         
         Explosion.init();
@@ -109,14 +109,13 @@ public class VehicleWorld extends World
         nextSnowStormAct = 300;
         
         acts = 0;
-        actsTime = 0;
         
         // Init lane spawner objects 
         laneSpawners = new VehicleSpawner[laneCount];
-
+        
         // Prepare lanes method - draws the lanes
         lanePositionsY = prepareLanes (this, background, laneSpawners, 232, laneHeight, laneCount, spaceBetweenLanes, twoWayTraffic, splitAtCenter);
-
+        
         laneSpawners[0].setSpeedModifier(0.8);
         laneSpawners[3].setSpeedModifier(1.4);
 
@@ -128,14 +127,13 @@ public class VehicleWorld extends World
 
     public void act()
     {
-        actsTime++;
         acts++;
         spawn(); // Handle vehicle spawning
         zSort ((ArrayList<Actor>)(getObjects(Actor.class)), this);
         // Check for the world-wide effect every 5 seconds
         if (getObjects(Vehicle.class).isEmpty()) {
             // If there are no vehicles currently in the world, apply the blowback effect
-            applyBlowBackEffect();
+            //applyBlowBackEffect();
         }
         Explosion.init();
     }
@@ -159,7 +157,7 @@ public class VehicleWorld extends World
 
     private void spawn () {
         // Chance to spawn a vehicle
-        acts++;
+        //acts++;
         if (Greenfoot.getRandomNumber (60) == 0){
             int lane = Greenfoot.getRandomNumber(laneCount);
             if (!laneSpawners[lane].isTouchingVehicle()){
@@ -201,13 +199,6 @@ public class VehicleWorld extends World
         
     }
 
-    private void applyBlowBackEffect() {
-        List<Vehicle> vehicles = getObjects(Vehicle.class);
-        for (Vehicle vehicle : vehicles) {
-            // Apply a force to move the vehicle backward (adjust as needed)
-            vehicle.setLocation(vehicle.getX() - 50, vehicle.getY());
-        }
-    }
 
     /**
      *  Given a lane number (zero-indexed), return the y position
@@ -406,12 +397,6 @@ public class VehicleWorld extends World
     }
 
 }
-
-
-/**
- * Container to hold and Actor and an LOCAL position (so the data isn't lost when the Actor is temporarily
- * removed from the World).
- */
 class ActorContent implements Comparable <ActorContent> {
     private Actor actor;
     private int xx, yy;
@@ -429,7 +414,7 @@ class ActorContent implements Comparable <ActorContent> {
     public int getX() {
         return xx;
     }
- 
+
     public int getY() {
         return yy;
     }
@@ -437,10 +422,6 @@ class ActorContent implements Comparable <ActorContent> {
     public Actor getActor(){
         return actor;
     }
-    
-    // public int getActs(){
-        // return actsTime;
-    // }
 
     public String toString () {
         return "Actor: " + actor + " at " + xx + ", " + yy;
