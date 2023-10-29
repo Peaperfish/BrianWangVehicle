@@ -16,7 +16,7 @@ public class Ambulance extends Vehicle
         maxSpeed = 2.5;
         speed = maxSpeed;
         
-        siren = new GreenfootSound("siren.wav");
+        //siren = new GreenfootSound("siren.wav");
     }
 
     /**
@@ -31,7 +31,7 @@ public class Ambulance extends Vehicle
     public boolean checkHitPedestrian() {
         Pedestrian pedestrian = (Pedestrian)getOneIntersectingObject(Pedestrian.class);
         
-        siren.play();
+        //siren.play();
         
         if (pedestrian != null) {
             pedestrian.healMe();

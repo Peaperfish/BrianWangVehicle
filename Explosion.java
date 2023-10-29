@@ -77,7 +77,7 @@ public class Explosion extends Effect
 
     public void addedToWorld (World w){
         if (maxSize > 30){
-            explosionSounds[explosionSoundsIndex].setVolume(Math.min(maxSize, 60));
+            explosionSounds[explosionSoundsIndex].setVolume(Math.min(maxSize, 100));
             explosionSounds[explosionSoundsIndex].play();
             explosionSoundsIndex++;
             if (explosionSoundsIndex >= explosionSounds.length){
@@ -91,7 +91,7 @@ public class Explosion extends Effect
      */
     public static void init(){
         explosionSoundsIndex = 0;
-        explosionSounds = new GreenfootSound[48]; // lots of simultaneous explosioning!
+        explosionSounds = new GreenfootSound[80]; // lots of simultaneous explosioning!
         for (int i = 0; i < explosionSounds.length; i++){
             explosionSounds[i] = new GreenfootSound("explosion.wav");
         }
