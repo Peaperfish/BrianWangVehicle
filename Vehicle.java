@@ -21,7 +21,9 @@ public abstract class Vehicle extends SuperSmoothMover
     private int[] lanePositionsY = {
             262, 316, 424, 478, 532, 586, 640 
         };
-
+    
+  
+    
     protected boolean checkHitPedestrian() {
         int frontX = getX() + (int)(direction * getImage().getWidth() / 2); // Center point
         int leftX = getX() + (int)(direction * getImage().getWidth() / 2); // Left side point
@@ -90,38 +92,6 @@ public abstract class Vehicle extends SuperSmoothMover
         return myLaneNumber;
     }
 
-    public List<Vehicle> getVehiclesInLane(int lane) {
-        List<Vehicle> vehiclesInLane = new ArrayList<>();
-
-        //Iterate through all Vehicle objects and add those in the specified lane
-        for (Vehicle vehicle : getWorld().getObjects(Vehicle.class)) {
-            if (vehicle.getLaneNumber() == lane) {
-                vehiclesInLane.add(vehicle);
-            }
-        }
-
-        return vehiclesInLane;
-    }
-
-    protected boolean isLaneCongested(int laneNumber) {
-        int maxLaneCapacity = 5; // Define the maximum number of vehicles allowed in a lane
-        int vehiclesInLane = getVehiclesInLane(laneNumber).size();
-        return vehiclesInLane >= maxLaneCapacity;
-    }
-
-    protected boolean isOpenLane() {
-        int adjacentLaneNumber = myLaneNumber + direction; // Calculate the adjacent lane
-        return !isLaneCongested(adjacentLaneNumber); // Check if the adjacent lane is not congested
-    }
-
-    protected boolean shouldChangeLane() {
-        boolean congested = isLaneCongested(myLaneNumber);
-        boolean openLane = isOpenLane();
-
-        // Decide if it's a good time to change lanes
-        return congested && openLane;
-    }
-
     /**
      * The superclass Vehicle's act() method. This can be called by a Vehicle subclass object 
      * (for example, by a Car) in two ways:
@@ -129,20 +99,7 @@ public abstract class Vehicle extends SuperSmoothMover
      *   instead. 
      * - subclass' act() method can invoke super.act() to call this, as is demonstrated here.
      */
-    protected void changeLane() {
-        // Check lane change conditions and perform the change if needed
-        boolean congested = isLaneCongested(myLaneNumber); 
-        boolean openLane = isOpenLane(); // Implement this method as per your simulation
 
-        if (congested && openLane) {
-            int newLaneNumber = myLaneNumber + (direction > 0 ? 1 : -1);
-            if (isValidLaneNumber(newLaneNumber)) {
-                myLaneNumber = newLaneNumber;
-                //setLocation(getX(), getWorld().getLaneY(myLaneNumber));
-                // Update any other properties as needed
-            }
-        }
-    }
 
     public int getLaneY(int lane) {
         // Define the Y-coordinates for each lane (you may need to adjust these values)
@@ -173,9 +130,6 @@ public abstract class Vehicle extends SuperSmoothMover
         }
 
         // Call the lane change method here when needed
-        if (shouldChangeLane()) {
-            changeLane();
-        }
     }
 
     /**

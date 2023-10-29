@@ -21,9 +21,15 @@ public class Car extends Vehicle
     }
 
     public void act() {
-        super.act();
-    }
+        // Check for a car in front
+        Vehicle carInFront = (Vehicle) getOneObjectAtOffset(0, -15, Vehicle.class);
 
+        if (carInFront != null) {
+            // There is a car in front within 15 units
+            setLocation(getX(), getY() - 54); // Move the car up 54 units
+        }
+    }
+    
     /**
      * When a Car hits a Pedestrian, it should knock it over and honk the horn.
      */

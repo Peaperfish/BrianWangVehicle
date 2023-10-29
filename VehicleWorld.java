@@ -68,6 +68,8 @@ public class VehicleWorld extends World
     private int actCount;
     private GreenfootSound city;
     
+    
+    
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -80,7 +82,7 @@ public class VehicleWorld extends World
     public VehicleWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1024, 800, 1, false); 
+        super(900, 600, 1, false); 
 
         // This command (from Greenfoot World API) sets the order in which 
         // objects will be displayed. In this example, Pedestrians will
@@ -95,9 +97,9 @@ public class VehicleWorld extends World
         setBackground (background);
 
         // Set critical variables - will affect lane drawing
-        laneCount = 8;
+        laneCount = 6;
         laneHeight = 50;
-        spaceBetweenLanes = 5;
+        spaceBetweenLanes = 6;
         splitAtCenter = true;
         twoWayTraffic = false;
         
@@ -119,6 +121,8 @@ public class VehicleWorld extends World
         setBackground (background);
         
         city = new GreenfootSound ("city.mp3");
+        
+        
 
     }
 
@@ -154,7 +158,7 @@ public class VehicleWorld extends World
 
     private void spawn () {
         // Chance to spawn a vehicle
-        if (Greenfoot.getRandomNumber (60) == 0){
+        if (Greenfoot.getRandomNumber (30) == 0){
             int lane = Greenfoot.getRandomNumber(laneCount);
             if (!laneSpawners[lane].isTouchingVehicle()){
                 int vehicleType = Greenfoot.getRandomNumber(4);
