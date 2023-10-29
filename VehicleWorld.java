@@ -66,7 +66,7 @@ public class VehicleWorld extends World
     private List<Vehicle>[] vehiclesInLanes;
     private int nextSnowStormAct; // when to spawn the next SnowStorm
     private int actCount;
-    private GreenfootSound music;
+    private GreenfootSound city;
     
     /**
      * Constructor for objects of class MyWorld.
@@ -118,7 +118,7 @@ public class VehicleWorld extends World
 
         setBackground (background);
         
-        //music = new GreenfootSound ("music.mp3");
+        city = new GreenfootSound ("city.mp3");
 
     }
 
@@ -135,13 +135,13 @@ public class VehicleWorld extends World
         Explosion.init();
     }
     
-    // public void started(){
-        // music.playLoop(); 
-    // }
+    public void started(){
+        city.playLoop(); 
+    }
     
-    // public void stopped(){
-        // music.pause();
-    // }
+    public void stopped(){
+        city.pause();
+    }
     
     public void addVehicleToLane(Vehicle vehicle, int lane) {
         vehiclesInLanes[lane].add(vehicle);

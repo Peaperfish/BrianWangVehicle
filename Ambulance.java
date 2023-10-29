@@ -1,11 +1,13 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.util.List;
+import java.util.*;
 
 /**
  * The Ambulance subclass
  */
 public class Ambulance extends Vehicle
 {
+    
+    private GreenfootSound siren;
     public Ambulance(VehicleSpawner origin){
         super (origin); // call the superclass' constructor first
 
@@ -13,6 +15,8 @@ public class Ambulance extends Vehicle
 
         maxSpeed = 2.5;
         speed = maxSpeed;
+        
+        siren = new GreenfootSound("siren.wav");
     }
 
     /**
@@ -26,13 +30,16 @@ public class Ambulance extends Vehicle
 
     public boolean checkHitPedestrian() {
         Pedestrian pedestrian = (Pedestrian)getOneIntersectingObject(Pedestrian.class);
-
+        
+        siren.play();
+        
         if (pedestrian != null) {
             pedestrian.healMe();
             return true; // Collision detected
         }
 
         return false; // No collision
+        
     }
 
 }
