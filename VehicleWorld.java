@@ -45,6 +45,7 @@ import java.util.List;
 public class VehicleWorld extends World
 {
     private GreenfootImage background;
+    private GreenfootSound wind;
 
     // Color Constants
     public static Color GREY_BORDER = new Color (108, 108, 108);
@@ -65,7 +66,7 @@ public class VehicleWorld extends World
     private List<Vehicle>[] vehiclesInLanes;
     private int nextSnowStormAct; // when to spawn the next SnowStorm
     private int actCount;
-    
+    private GreenfootSound music;
     
     /**
      * Constructor for objects of class MyWorld.
@@ -116,6 +117,8 @@ public class VehicleWorld extends World
         laneSpawners[3].setSpeedModifier(1.4);
 
         setBackground (background);
+        
+        //music = new GreenfootSound ("music.mp3");
 
     }
 
@@ -129,8 +132,17 @@ public class VehicleWorld extends World
             // If there are no vehicles currently in the world, apply the blowback effect
             applyBlowBackEffect();
         }
+        Explosion.init();
     }
-
+    
+    // public void started(){
+        // music.playLoop(); 
+    // }
+    
+    // public void stopped(){
+        // music.pause();
+    // }
+    
     public void addVehicleToLane(Vehicle vehicle, int lane) {
         vehiclesInLanes[lane].add(vehicle);
         addObject(vehicle, vehicle.getX(), vehicle.getY());

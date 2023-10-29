@@ -5,7 +5,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Car extends Vehicle
 {
-    private GreenfootSound honk;
+    private static GreenfootSound[] honk;
+    private static int honkSoundsIndex = 0; 
+    
     
     public Car(VehicleSpawner origin) {
         super(origin); // call the superclass' constructor
@@ -13,6 +15,7 @@ public class Car extends Vehicle
         speed = maxSpeed;
         yOffset = 4;
         followingDistance = 6;
+        
     }
 
     public void act()
@@ -21,7 +24,11 @@ public class Car extends Vehicle
     }
 
     public void honkHorn() {
-        honk = new GreenfootSound("carHorn.wav");
+        honkSoundsIndex = 0;
+        
+        honk[1] = new GreenfootSound("honk.wav");
+
+        honk[honkSoundsIndex].play();
     }
     
 
@@ -33,7 +40,7 @@ public class Car extends Vehicle
         if (p != null)
         {
             p.knockDown();
-            honkHorn(); // Call the honkHorn method when hitting a pedestrian
+            honk[honkSoundsIndex].play(); // Call the honkHorn method when hitting a pedestrian
             return true;
         }
         return false;

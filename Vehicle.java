@@ -140,7 +140,7 @@ public abstract class Vehicle extends SuperSmoothMover
         // Check lane change conditions and perform the change if needed
         boolean congested = isLaneCongested(myLaneNumber);
         boolean openLane = isOpenLane(); // Implement this method as per your simulation
-
+        
         if (congested && openLane) {
             // Change lane to the adjacent lane
             myLaneNumber += (direction > 0) ? 1 : -1;

@@ -12,18 +12,25 @@ public class SnowStorm extends Effect
     private int actsLeft;
     private double speed;
     private boolean turnedAround;
-
+    private GreenfootSound wind;
+    
+    
     public SnowStorm () {
         actsLeft = 300; // 300 acts = ~5 seconds
         speed = 3.5;
-        turnedAround = true;
+        turnedAround = false;
+        
+        wind = new GreenfootSound("wind.wav");
+
+
     }
 
     public void addedToWorld (World w){
         if (image == null){
-            image = drawSand (getWorld().getWidth() * 2, getWorld().getHeight(), 1000);
+            image = drawSnow (getWorld().getWidth() * 2, getWorld().getHeight(), 1000);
         }
         setImage(image);
+
     }
 
     /**
@@ -32,6 +39,9 @@ public class SnowStorm extends Effect
      */
     public void act()
     {
+        
+        wind.play();
+        
         actsLeft--;
         if (actsLeft <=60){
             fade (actsLeft, 60);
@@ -53,8 +63,8 @@ public class SnowStorm extends Effect
         if (getX() > 0 && change < 0 || getX() < image.getWidth() && change > 0){
             //  speed += change;
         }
+                
 
-        
         setLocation (getX() + speed, getY());
 
         ArrayList<Pedestrian> peds = (ArrayList<Pedestrian>)getWorld().getObjects(Pedestrian.class);
@@ -71,7 +81,7 @@ public class SnowStorm extends Effect
     /**
      * density should be 1-100. 100 will be almost completely white
      */
-    public static GreenfootImage drawSand (int width, int height, int density){
+    public static GreenfootImage drawSnow (int width, int height, int density){
 
         Color[] swatch = new Color [32];
 
