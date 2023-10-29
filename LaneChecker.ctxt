@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=LaneChecker
+comment0.text=\r\n\ A\ Spawner\ object\ is\ a\ place\ where\ a\ Vehicle\ can\ spawn.\ Each\ spawner\ is\r\n\ able\ to\ check\ if\ there\ is\ already\ a\ Vehicle\ in\ the\ spot\ to\ avoid\ spawning\r\n\ multiple\ Vehicles\ on\ top\ of\ each\ other.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=speed\ direction\ vehicleWidth\ topOrBottomLane
+comment1.target=LaneChecker(double,\ int,\ int,\ java.lang.String)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=double\ getSpeed()
+comment4.params=
+comment4.target=boolean\ amTouchingVehicle()
+comment5.params=
+comment5.target=boolean\ isTouchingVehicle()
+numComments=6

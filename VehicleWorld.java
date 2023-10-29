@@ -42,6 +42,7 @@ import java.util.List;
  * 
  * 
  */
+
 public class VehicleWorld extends World
 {
     private GreenfootImage background;
@@ -65,8 +66,10 @@ public class VehicleWorld extends World
     private VehicleSpawner[] laneSpawners;
     private List<Vehicle>[] vehiclesInLanes;
     private int nextSnowStormAct; // when to spawn the next SnowStorm
-    private int actCount;
+    private int acts;
+    private int actsTime;
     private GreenfootSound city;
+
     
     /**
      * Constructor for objects of class MyWorld.
@@ -79,8 +82,8 @@ public class VehicleWorld extends World
      */
     public VehicleWorld()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(1024, 800, 1, false); 
+        // Create a new world with 1000x650 cells with a cell size of 1x1 pixels.
+        super(1000, 600, 1, false); 
 
         // This command (from Greenfoot World API) sets the order in which 
         // objects will be displayed. In this example, Pedestrians will
@@ -95,9 +98,9 @@ public class VehicleWorld extends World
         setBackground (background);
 
         // Set critical variables - will affect lane drawing
-        laneCount = 8;
-        laneHeight = 50;
-        spaceBetweenLanes = 5;
+        laneCount = 6;
+        laneHeight = 48;
+        spaceBetweenLanes = 6;
         splitAtCenter = true;
         twoWayTraffic = false;
         
@@ -105,7 +108,8 @@ public class VehicleWorld extends World
         
         nextSnowStormAct = 300;
         
-        actCount = 0;
+        acts = 0;
+        actsTime = 0;
         
         // Init lane spawner objects 
         laneSpawners = new VehicleSpawner[laneCount];
@@ -124,7 +128,8 @@ public class VehicleWorld extends World
 
     public void act()
     {
-        actCount++;
+        actsTime++;
+        acts++;
         spawn(); // Handle vehicle spawning
         zSort ((ArrayList<Actor>)(getObjects(Actor.class)), this);
         // Check for the world-wide effect every 5 seconds
@@ -134,11 +139,11 @@ public class VehicleWorld extends World
         }
         Explosion.init();
     }
-    
+    //When the program is started, it plays the road ambience audio file
     public void started(){
         city.playLoop(); 
     }
-    
+    //When the program is paused/stops, it stops the road ambience audio file
     public void stopped(){
         city.pause();
     }
@@ -154,6 +159,7 @@ public class VehicleWorld extends World
 
     private void spawn () {
         // Chance to spawn a vehicle
+        acts++;
         if (Greenfoot.getRandomNumber (60) == 0){
             int lane = Greenfoot.getRandomNumber(laneCount);
             if (!laneSpawners[lane].isTouchingVehicle()){
@@ -180,7 +186,7 @@ public class VehicleWorld extends World
             }
         }
         
-        if (actCount == nextSnowStormAct){
+        if (acts == nextSnowStormAct){
             addObject (new SnowStorm(), 0, getHeight()/2); // actually start the SnowStorm
             
             // Calculate the INTERVAL - how long between spawns?
@@ -190,7 +196,7 @@ public class VehicleWorld extends World
             
             // Add the current actCount (it just keeps counting up) to the desired
             // interval to determing when the next SnowStorm should spawn
-            nextSnowStormAct = actCount + actsUntilNextStorm;
+            nextSnowStormAct = acts + actsUntilNextStorm;
         }
         
     }
@@ -423,7 +429,7 @@ class ActorContent implements Comparable <ActorContent> {
     public int getX() {
         return xx;
     }
-
+ 
     public int getY() {
         return yy;
     }
@@ -431,6 +437,10 @@ class ActorContent implements Comparable <ActorContent> {
     public Actor getActor(){
         return actor;
     }
+    
+    // public int getActs(){
+        // return actsTime;
+    // }
 
     public String toString () {
         return "Actor: " + actor + " at " + xx + ", " + yy;

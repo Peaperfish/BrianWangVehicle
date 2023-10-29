@@ -9,6 +9,7 @@ import java.util.List;
 public abstract class Vehicle extends SuperSmoothMover
 {
     protected double maxSpeed;
+    protected double saveMaxSpeed;
     protected double speed;
     protected int direction; // 1 = right, -1 = left
     protected boolean moving;
@@ -17,6 +18,22 @@ public abstract class Vehicle extends SuperSmoothMover
     protected VehicleSpawner origin;
     protected int followingDistance;
     protected int myLaneNumber;
+    protected boolean isSwitchingLanes = false;
+    protected boolean switchingLeft = false;
+    protected boolean switchingRight = false;
+    protected boolean checkedLeft = false;
+    protected boolean checkedRight = false;
+    protected boolean gotHeight = false;
+    protected int laneYCoord;
+    protected int carRotation;
+    protected int rotation = 0;
+    protected int nextLaneY;
+    protected int turnCoolDown;
+    private int actCount;
+    
+    
+    
+    private GreenfootSound honk; 
 
     private int[] lanePositionsY = {
             262, 316, 424, 478, 532, 586, 640 
@@ -65,6 +82,7 @@ public abstract class Vehicle extends SuperSmoothMover
         maxSpeed *= origin.getSpeedModifier();
         speed = maxSpeed;
         isNew = true;
+        honk = new GreenfootSound("honk.wav");
     }
 
     /**
@@ -272,37 +290,197 @@ public abstract class Vehicle extends SuperSmoothMover
 
     /**
      * Method that deals with movement. Speed can be set by individual subclasses in their constructors
-     */
+
     public void drive() 
     {
-        // Ahead is a generic vehicle - we don't know what type BUT
-        // since every Vehicle "promises" to have a getSpeed() method,
-        // we can call that on any vehicle to find out it's speed
-        Vehicle ahead = (Vehicle) getOneObjectAtOffset (direction * (int)(speed + getImage().getWidth()/2 + 6), 0, Vehicle.class);
-        double otherVehicleSpeed = -1;
-        if (ahead != null) {
+    // Ahead is a generic vehicle - we don't know what type BUT
+    // since every Vehicle "promises" to have a getSpeed() method,
+    // we can call that on any vehicle to find out it's speed
+    Vehicle ahead = (Vehicle) getOneObjectAtOffset (direction * (int)(speed + getImage().getWidth()/2 + 6), 0, Vehicle.class);
+    double otherVehicleSpeed = -1;
+    if (ahead != null) {
 
-            otherVehicleSpeed = ahead.getSpeed();
-        }
+    otherVehicleSpeed = ahead.getSpeed();
+    }
 
-        // Various things that may slow down driving speed 
-        // You can ADD ELSE IF options to allow other 
-        // factors to reduce driving speed.
+    // Various things that may slow down driving speed 
+    // You can ADD ELSE IF options to allow other
+    // factors to reduce driving speed.
 
-        if (otherVehicleSpeed > 0 && otherVehicleSpeed < maxSpeed){ // Vehicle ahead is slower?
-            speed = otherVehicleSpeed;
-        } else {
-            speed = maxSpeed; // nothing impeding speed, so go max speed
-        }
+    if (otherVehicleSpeed > 0 && otherVehicleSpeed < maxSpeed){ // Vehicle ahead is slower?
+    speed = otherVehicleSpeed;
+    } else {
+    speed = maxSpeed; // nothing impeding speed, so go max speed
+    }
 
-        move (speed * direction);
+    move (speed * direction);
     }   
+     */
+    
+    // I got help starting from here
+    
+    public void drive() 
+    {
+        if(gotHeight == false){
+            laneYCoord = getY(); 
+            gotHeight = true;
+        }
 
+        if (shouldChangeLane()) {
+            LaneChecker lcLeftLane = (LaneChecker)getOneObjectAtOffset(0, -48-6, LaneChecker.class);
+            LaneChecker lcRightLane = (LaneChecker)getOneObjectAtOffset(0, +48+6, LaneChecker.class);    
+            LaneChecker lcFront = (LaneChecker)getOneObjectAtOffset(direction * (int)(speed + getImage().getWidth()/2 + maxSpeed), 0, LaneChecker.class);
+        
+            
+            if(!isSwitchingLanes){
+                Vehicle ahead = (Vehicle) getOneObjectAtOffset (direction * (int)(speed + getImage().getWidth()/2 + maxSpeed), 0, Vehicle.class);
+                VehicleWorld world = (VehicleWorld) getWorld();
+                //change to if turning left and right instead of turning left
+                if (ahead == null)
+                {
+                    speed = maxSpeed;
+                }
+                
+                else if(ahead.getIsSwitchingLanes() == false && turnCoolDown > 120 ){//&& world.getActs() > 120){
+                    lcLeftLane = (LaneChecker)getOneObjectAtOffset(0, -48-6, LaneChecker.class);
+                    lcRightLane = (LaneChecker)getOneObjectAtOffset(0, +48+6, LaneChecker.class);        
+                    if(lcLeftLane == null){
+                        putLeftLaneChecker(getY());
+                        lcLeftLane = (LaneChecker)getOneObjectAtOffset(0, -48-6, LaneChecker.class);
+                        if(lcLeftLane != null){
+                            if(lcLeftLane.amTouchingVehicle() == true){
+                                getWorld().removeObject(lcLeftLane);
+                            }
+                            else{
+                                isSwitchingLanes = true;
+                                switchingLeft = true;
+                                laneYCoord = getY()-48 - 6;
+                                //maxSpeed+= 10;
+                                setRotation(-45);
+                                //return true;
+                            }
+                        }
+                    }
+                    
+                    if(!isSwitchingLanes && lcRightLane == null){
+                        putRightLaneChecker(getY());
+                        lcRightLane = (LaneChecker)getOneObjectAtOffset(0, +48+6, LaneChecker.class);
+                        if(lcRightLane != null){
+                            if(lcRightLane.amTouchingVehicle() == true){
+                                getWorld().removeObject(lcRightLane);
+                            }
+                            else{
+                                isSwitchingLanes = true;
+                                switchingRight = true;
+                                laneYCoord = getY()+48 + 6;
+                                //maxSpeed+= 10;
+                                setRotation(45);
+                                //return true;
+                            }
+                        }
+
+                    }
+                    if(!isSwitchingLanes && getRotation() == 0){
+                        //if lanes happen to have cars on them
+                        honk.play();
+                        speed = 0;
+                    }
+                    //ends here
+                }
+                else{
+                    //if vehicle infront is switching lanes
+                    speed = 0;
+                }
+                if(lcFront != null && isTouching(LaneChecker.class) && getRotation() == 0 && !isSwitchingLanes && turnCoolDown > 120)
+                    speed = lcFront.getSpeed()*2;
+                else if(lcFront != null && !isTouching(LaneChecker.class) && getRotation() == 0 && !isSwitchingLanes && turnCoolDown > 120)
+                    speed = lcFront.getSpeed();
+            }
+            else if(isSwitchingLanes && switchingLeft){        
+                if(checkSwitchedLeftLane(laneYCoord, maxSpeed) == true){
+                    getWorld().removeObject(lcFront);
+                }
+                turnCoolDown = 0;
+            }
+            else if(isSwitchingLanes && switchingRight){
+                if(checkSwitchedRightLane(laneYCoord, maxSpeed) == true){
+                    getWorld().removeObject(lcFront);
+                }
+                turnCoolDown = 0;
+            }
+
+            turnCoolDown++;
+            move (speed * direction);
+
+        }   
+    }
+    // got help ends
+    
+    
+    //Returns if the vehicle is switching lanes
+    public boolean getIsSwitchingLanes(){
+        return isSwitchingLanes;
+    }
+
+    //returns whether if the vehicle is moving to the left lane
+    public boolean checkSwitchedLeftLane(int destinationY, double speed){
+        if(getY() -speed <= destinationY){
+            setLocation(getX(),destinationY);
+            setRotation(0);
+            isSwitchingLanes = false;
+            switchingLeft = false;
+            maxSpeed = saveMaxSpeed;
+            return true;
+        }
+        move(direction*maxSpeed);
+        return false;
+    }
+    //returns whether if the vehicle is moving to the right lane
+    public boolean checkSwitchedRightLane(int destinationY, double speed){
+        if(getY() + speed >= destinationY){
+            setLocation(getX(),destinationY);
+            setRotation(0);
+            isSwitchingLanes = false;
+            switchingRight = false;
+            maxSpeed = saveMaxSpeed;
+            return true;
+        }
+        move(direction*maxSpeed);
+
+        return false;
+    }
+    //Puts a left lane checker if it is in a viable spot (if its to be placed off road it will not place)
+    public boolean putLeftLaneChecker(int y){
+        VehicleWorld world = (VehicleWorld) getWorld();
+        int lane = world.getLane(y);
+        int laneY = world.getLaneY(lane);
+        if(lane != 0){
+            getWorld().addObject(new LaneChecker(speed, direction,(int)(getImage().getWidth()*3), "left"),getX(),getY()-48-6);
+            return true;
+        }
+        return false;
+
+    }
+    //Puts a right lane checker if it is in a viable spot (if its to be placed off road it will not place)
+    public boolean putRightLaneChecker(int y){
+        VehicleWorld world = (VehicleWorld) getWorld();
+        int lane = world.getLane(y);
+        int laneY = world.getLaneY(lane);
+        if(lane != 5){
+            getWorld().addObject(new LaneChecker(speed, direction,(int)(getImage().getWidth()*3), "right"),getX(),getY()+48+6);
+            return true;
+        }
+        return false;
+    }
     /**
      * An accessor that can be used to get this Vehicle's speed. Used, for example, when a vehicle wants to see
      * if a faster vehicle is ahead in the lane.
      */
     public double getSpeed(){
         return speed;
+    }
+    
+    public int getActs(){
+        return actCount;
     }
 }
