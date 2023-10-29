@@ -95,8 +95,8 @@ public class VehicleWorld extends World
         setBackground (background);
 
         // Set critical variables - will affect lane drawing
-        laneCount = 7;
-        laneHeight = 54;
+        laneCount = 8;
+        laneHeight = 50;
         spaceBetweenLanes = 5;
         splitAtCenter = true;
         twoWayTraffic = false;

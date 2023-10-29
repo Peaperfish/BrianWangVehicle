@@ -90,13 +90,6 @@ public abstract class Vehicle extends SuperSmoothMover
         return myLaneNumber;
     }
 
-    public int getLaneY(int lane) {
-        if (lane >= 0 && lane < lanePositionsY.length) {
-            return lanePositionsY[lane];
-        }
-        return -1; // Return a default value if the lane is out of bounds
-    }
-
     public List<Vehicle> getVehiclesInLane(int lane) {
         List<Vehicle> vehiclesInLane = new ArrayList<>();
 
@@ -138,15 +131,34 @@ public abstract class Vehicle extends SuperSmoothMover
      */
     protected void changeLane() {
         // Check lane change conditions and perform the change if needed
-        boolean congested = isLaneCongested(myLaneNumber);
+        boolean congested = isLaneCongested(myLaneNumber); 
         boolean openLane = isOpenLane(); // Implement this method as per your simulation
-        
+
         if (congested && openLane) {
-            // Change lane to the adjacent lane
-            myLaneNumber += (direction > 0) ? 1 : -1;
-            VehicleWorld vw = (VehicleWorld)getWorld();
-            setLocation(getX(), vw.getLaneY(myLaneNumber)); 
+            int newLaneNumber = myLaneNumber + (direction > 0 ? 1 : -1);
+            if (isValidLaneNumber(newLaneNumber)) {
+                myLaneNumber = newLaneNumber;
+                //setLocation(getX(), getWorld().getLaneY(myLaneNumber));
+                // Update any other properties as needed
+            }
         }
+    }
+
+    public int getLaneY(int lane) {
+        // Define the Y-coordinates for each lane (you may need to adjust these values)
+        int[] lanePositionsY = {262, 316, 424, 478, 532, 586, 640};
+
+        // Check if the provided lane is within a valid range
+        if (lane >= 0 && lane < lanePositionsY.length) {
+            return lanePositionsY[lane];
+        }
+
+        // Return a default value (e.g., -1) if the lane is out of bounds
+        return -1;
+    }
+
+    private boolean isValidLaneNumber(int laneNumber) {
+        return laneNumber >= 0 && laneNumber < lanePositionsY.length;
     }
 
     public void act() {
@@ -189,7 +201,7 @@ public abstract class Vehicle extends SuperSmoothMover
         }
         return false;
     }
-    
+
     public void repelPedestrians() {
         ArrayList<Pedestrian> pedsTouching = (ArrayList<Pedestrian>)getIntersectingObjects(Pedestrian.class);
 
@@ -206,7 +218,6 @@ public abstract class Vehicle extends SuperSmoothMover
         pushAwayFromObjects(actorsTouching, 4);
     }
 
-    
     /**
      * New repel method! Seems to work well. Can be used in both directions, but for now
      * commented out movement on x so players are only "repelled" in a y-direction.
@@ -287,7 +298,6 @@ public abstract class Vehicle extends SuperSmoothMover
         move (speed * direction);
     }   
 
-    
     /**
      * An accessor that can be used to get this Vehicle's speed. Used, for example, when a vehicle wants to see
      * if a faster vehicle is ahead in the lane.
