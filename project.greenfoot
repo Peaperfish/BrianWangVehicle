@@ -1,9 +1,11 @@
 #Greenfoot project file
 class.Ambulance.image=ambulance.png
+class.BottomPedestrian.image=person.png
 class.Bus.image=van.png
 class.Car.image=car.png
-class.Pedestrian.image=man01.png
+class.Pedestrian.image=person.png
 class.Tank.image=Tank(1).png
+class.TopPedestrian.image=man02.png
 dependency1.from=VehicleWorld
 dependency1.to=VehicleSpawner
 dependency1.type=UsesDependency
@@ -123,7 +125,7 @@ readme.name=@README
 readme.width=49
 readme.x=10
 readme.y=10
-simulation.speed=50
+simulation.speed=73
 target1.height=70
 target1.name=Bus
 target1.showInterface=false
