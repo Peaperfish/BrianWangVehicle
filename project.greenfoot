@@ -2,7 +2,7 @@
 class.Ambulance.image=ambulance.png
 class.BottomPedestrian.image=person.png
 class.Bus.image=van.png
-class.Car.image=car.png
+class.Car.image=carNoPros.png
 class.Pedestrian.image=person.png
 class.Tank.image=Tank(1).png
 class.TopPedestrian.image=person2.PNG

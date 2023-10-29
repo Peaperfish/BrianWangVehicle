@@ -22,7 +22,7 @@ public class Bus extends Vehicle
         maxSpeed = 1.5 + ((Math.random() * 10)/5);
         speed = maxSpeed;
         // because the Bus graphic is tall, offset it a up (this may result in some collision check issues)
-        yOffset = 15;
+        yOffset = 10;
     }
 
     /**

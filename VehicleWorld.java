@@ -91,7 +91,7 @@ public class VehicleWorld extends World
 
         // set up background -- If you change this, make 100% sure
         // that your chosen image is the same size as the World
-        background = new GreenfootImage ("background02.jpg");
+        background = new GreenfootImage ("background01.png");
         setBackground (background);
 
         // Set critical variables - will affect lane drawing
