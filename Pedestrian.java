@@ -9,12 +9,14 @@ public abstract class Pedestrian extends SuperSmoothMover {
     public int direction; // direction is always -1 or 1, for moving down or up, respectively
     public boolean awake;
     protected int startRotation;
+    private GreenfootSound scream;
     
     public Pedestrian(int direction) {
         maxSpeed = Math.random() * 2 + 3;
         speed = maxSpeed;
         awake = true;
         this.direction = direction;
+        scream = new GreenfootSound ("scream.wav");
     }
 
     /**
@@ -23,6 +25,8 @@ public abstract class Pedestrian extends SuperSmoothMover {
     public abstract void act();
 
     public void knockDown() {
+        
+        scream.play();
         speed = 0;
         setRotation(90);
         awake = false;
