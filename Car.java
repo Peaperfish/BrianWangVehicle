@@ -34,6 +34,13 @@ public class Car extends Vehicle
             
             // Play the honk sound
             honk.play();
+            if (getY() == 259) {
+                setLocation(getX(), getY() + 56);
+            } else if (getY() == 536){
+                setLocation(getX(), getY() - 56);
+            } else {
+                setLocation(getX(), getY() - 56);
+            }
             
             return true;
         }

@@ -11,7 +11,7 @@ public abstract class Pedestrian extends SuperSmoothMover {
     protected int startRotation;
     
     public Pedestrian(int direction) {
-        maxSpeed = Math.random() * 2 + 1;
+        maxSpeed = Math.random() * 2 + 3;
         speed = maxSpeed;
         awake = true;
         this.direction = direction;
