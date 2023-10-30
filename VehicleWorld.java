@@ -91,7 +91,7 @@ public class VehicleWorld extends World
     private int nextSnowStormAct; // when to spawn the next SnowStorm
     private int actCount;
     private GreenfootSound city;
-    
+
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -124,13 +124,13 @@ public class VehicleWorld extends World
         spaceBetweenLanes = 6;
         splitAtCenter = true;
         twoWayTraffic = false;
-        
+
         Explosion.init();
-        
+
         nextSnowStormAct = 300;
-        
+
         actCount = 0;
-        
+
         // Init lane spawner objects 
         laneSpawners = new VehicleSpawner[laneCount];
 
@@ -141,7 +141,7 @@ public class VehicleWorld extends World
         laneSpawners[3].setSpeedModifier(1.4);
 
         setBackground (background);
-        
+
         city = new GreenfootSound ("city.mp3");
 
     }
@@ -158,22 +158,13 @@ public class VehicleWorld extends World
         }
         Explosion.init();
     }
-    
+
     public void started(){
         city.playLoop(); 
     }
-    
+
     public void stopped(){
         city.pause();
-    }
-    
-    public void addVehicleToLane(Vehicle vehicle, int lane) {
-        vehiclesInLanes[lane].add(vehicle);
-        addObject(vehicle, vehicle.getX(), vehicle.getY());
-    }
-
-    public List<Vehicle> getVehiclesInLane(int lane) {
-        return vehiclesInLanes[lane];
     }
 
     private void spawn () {
@@ -203,20 +194,20 @@ public class VehicleWorld extends World
                 addObject(new BottomPedestrian(), xSpawnLocation, BOTTOM_SPAWN);
             }
         }
-        
+
         if (actCount == nextSnowStormAct){
             addObject (new SnowStorm(), 0, getHeight()/2); // actually start the SnowStorm
-            
+
             // Calculate the INTERVAL - how long between spawns?
             // This presents a minimum of 600 and a maximum of 899 (600 + rand(0-299)
             // which represents about 10 to 15 seconds.
             int actsUntilNextStorm = Greenfoot.getRandomNumber (300) + 600;
-            
+
             // Add the current actCount (it just keeps counting up) to the desired
             // interval to determing when the next SnowStorm should spawn
             nextSnowStormAct = actCount + actsUntilNextStorm;
         }
-        
+
     }
 
     private void applyBlowBackEffect() {
@@ -424,7 +415,6 @@ public class VehicleWorld extends World
     }
 
 }
-
 
 /**
  * Container to hold and Actor and an LOCAL position (so the data isn't lost when the Actor is temporarily

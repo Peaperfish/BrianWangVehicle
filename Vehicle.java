@@ -89,7 +89,9 @@ public abstract class Vehicle extends SuperSmoothMover
     protected int getLaneNumber() {
         return myLaneNumber;
     }
-
+    
+    
+    /**
     public List<Vehicle> getVehiclesInLane(int lane) {
         List<Vehicle> vehiclesInLane = new ArrayList<>();
 
@@ -121,14 +123,15 @@ public abstract class Vehicle extends SuperSmoothMover
         // Decide if it's a good time to change lanes
         return congested && openLane;
     }
-
+    */
+    
     /**
      * The superclass Vehicle's act() method. This can be called by a Vehicle subclass object 
      * (for example, by a Car) in two ways:
      * - If the Vehicle simply does NOT have a method called public void act(), this will be called
      *   instead. 
      * - subclass' act() method can invoke super.act() to call this, as is demonstrated here.
-     */
+     
     protected void changeLane() {
         // Check lane change conditions and perform the change if needed
         boolean congested = isLaneCongested(myLaneNumber); 
@@ -143,7 +146,7 @@ public abstract class Vehicle extends SuperSmoothMover
             }
         }
     }
-
+    */
     public int getLaneY(int lane) {
         // Define the Y-coordinates for each lane (you may need to adjust these values)
         int[] lanePositionsY = {262, 316, 424, 478, 532, 586, 640};
@@ -157,9 +160,9 @@ public abstract class Vehicle extends SuperSmoothMover
         return -1;
     }
 
-    private boolean isValidLaneNumber(int laneNumber) {
-        return laneNumber >= 0 && laneNumber < lanePositionsY.length;
-    }
+    // private boolean isValidLaneNumber(int laneNumber) {
+        // return laneNumber >= 0 && laneNumber < lanePositionsY.length;
+    // }
 
     public void act() {
         drive(); // Your existing driving logic
@@ -170,11 +173,6 @@ public abstract class Vehicle extends SuperSmoothMover
         if (checkEdge()) {
             getWorld().removeObject(this);
             return;
-        }
-
-        // Call the lane change method here when needed
-        if (shouldChangeLane()) {
-            changeLane();
         }
     }
 
