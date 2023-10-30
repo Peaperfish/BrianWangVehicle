@@ -5,8 +5,10 @@ import greenfoot.*;
  */
 public class Car extends Vehicle
 {
-    private static GreenfootSound honk; // Change to a single GreenfootSound instance
-
+    private GreenfootSound honk; 
+    private GreenfootSound speeding;
+    
+    
     public Car(VehicleSpawner origin) {
         super(origin); // Call the superclass' constructor
         maxSpeed = 1.5 + ((Math.random() * 30) / 5);
@@ -17,6 +19,10 @@ public class Car extends Vehicle
         // Initialize the honk sound
         if (honk == null) {
             honk = new GreenfootSound("honk.wav");
+        }
+        
+        if (speeding == null) {
+            speeding = new GreenfootSound("speeding.wav");
         }
     }
 
@@ -34,6 +40,7 @@ public class Car extends Vehicle
             
             // Play the honk sound
             honk.play();
+            speeding.play();
             if (getY() == 259) {
                 setLocation(getX(), getY() + 56);
             } else if (getY() == 536){
