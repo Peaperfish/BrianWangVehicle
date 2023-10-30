@@ -115,7 +115,7 @@ public class SnowStorm extends Effect
                     //randSize = 2;
                     temp.drawRect (randX, randY, 0, 0);
                 }else{
-                    randSize = Greenfoot.getRandomNumber (2) + 2;
+                    randSize = Greenfoot.getRandomNumber (2) + 6;
                     temp.fillOval (randX, randY, randSize, randSize);
                 }
                 // silly way to draw a dot..

@@ -25,21 +25,45 @@ import java.util.List;
  * pedestrian with expolsion of the bomb when the pedestrian is standing in front of it
  * the bomb will disappear when the bomb is used, every tank will only have 1 bomb on it
  * 
- * the car (honda civic) will run over the pedestrian and as a result will kill them
+ * the car (honda civic) will run over the pedestrian and as a result will kill them, it will change
+ * lanes after killing a pedestrian, it will also change langes seeing a dead pedestrian on the ground
+ * it will also honk after killing a pedestrian
  * 
  * the ambulance will revive/heal the dead pedestrians, after getting healed/revived, 
  * the pedestrians will walk as if nothing happened till the other side of the road
  * 
+ * the van/bus will kidnap pedestrians in front of it, even bodies
+ * 
+ * the tank will kill the pedestrians with the bomb, though it only has one, the explosion will
+ * also destory the car
+ * 
+ * credits:
+ * 
+ * art:
+ * 
+ * https://sketchfab.com/3d-models/modified-honda-civic-720e9dac28214394b69874cc4641b6df
+ * https://sketchfab.com/3d-models/toyota-hiace-passenger-van-l2h3-glx-2020-ec15323d57f04ba4976f0e758298b25c
+ * https://sketchfab.com/3d-models/free-ambulance-b78313c16c9d46a7a67643245cf278d2
+ * https://sketchfab.com/3d-models/cartoon-tank-4ad6a656ceb4417088fb4caebb4a95e8
+ * https://stock.adobe.com/ca/images/realistic-falling-snow-with-snowflakes-and-clouds-winter-transparent-background-for-christmas-or-new-year-card-frost-storm-effect-snowfall-ice-vector-illustration/301013593
+ * https://www.reddit.com/media?url=https%3A%2F%2Fi.redd.it%2F0rn1riv25oc51.png
+ * https://sketchfab.com/3d-models/cyberpunk-riot-police-van-c5df7bd23f0b416bb3ae7255aece597c
  * 
  * 
+ * sounds/sfx:
+ * https://www.epidemicsound.com/sound-effects/screams/
+ * https://www.youtube.com/watch?v=s5bwBS27A1g
+ * https://www.youtube.com/watch?v=YF3pj_3mdMc
+ * https://pixabay.com/sound-effects/car-horn-beep-beep-two-beeps-honk-honk-6188/
  * 
+ * code:
+ * mr. cohen
+ * chatgpt:
+ * i asked chatgtp about how the sound works becuase i have some problems with playing sfx, though
+ * fixed it myself at the end
  * 
- * 
- * 
- * 
- * 
- * 
- * 
+ * bugs:
+ * sometimes the pedestrians gets stuck between the cars
  * 
  */
 public class VehicleWorld extends World
