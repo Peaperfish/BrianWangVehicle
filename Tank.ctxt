@@ -7,5 +7,5 @@ comment2.params=
 comment2.target=void\ act()
 comment3.params=
 comment3.target=boolean\ checkHitPedestrian()
-comment3.text=\r\n\ When\ a\ Car\ hit's\ a\ Pedestrian,\ it\ should\ knock\ it\ over\r\n
+comment3.text=\r\n\ When\ thank\ hit's\ a\ Pedestrian,\ the\ bomb\ should\ blow\ up\r\n
 numComments=4

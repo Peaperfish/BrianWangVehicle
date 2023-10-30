@@ -29,7 +29,7 @@ public class Tank extends Vehicle
     }
 
     /**
-     * When a Car hit's a Pedestrian, it should knock it over
+     * When thank hit's a Pedestrian, the bomb should blow up
      */
     public boolean checkHitPedestrian () {
         if (hasBomb){

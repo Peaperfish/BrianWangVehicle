@@ -16,7 +16,7 @@ public abstract class Pedestrian extends SuperSmoothMover {
         speed = maxSpeed;
         awake = true;
         this.direction = direction;
-        scream = new GreenfootSound ("scream.wav");
+        scream = new GreenfootSound ("scream1.wav");
     }
 
     /**
@@ -25,7 +25,6 @@ public abstract class Pedestrian extends SuperSmoothMover {
     public abstract void act();
 
     public void knockDown() {
-        
         scream.play();
         speed = 0;
         setRotation(90);
